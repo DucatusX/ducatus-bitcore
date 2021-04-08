@@ -45,6 +45,7 @@ if (config.cluster && !config.lockOpts.lockerServer)
 if (config.cluster && !config.messageBrokerOpts.messageBrokerServer)
   throw new Error('When running in cluster mode, message broker server need to be configured');
 
+config.sr_ip_addr = require('ip').address();
 const expressApp = new ExpressApp();
 
 function startInstance() {

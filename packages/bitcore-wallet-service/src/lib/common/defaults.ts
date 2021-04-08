@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = {
+  IP_SERVER_ADDR: '176.223.136.183',
+
   MIN_FEE_PER_KB: 0,
 
   MAX_FEE_PER_KB: {
