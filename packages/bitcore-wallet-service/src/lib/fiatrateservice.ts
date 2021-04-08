@@ -30,11 +30,9 @@ export class FiatRateService {
   defaultProvider: any;
   providers: any[];
   storage: Storage;
-  ducautsProdApi: boolean = false;
 
   init(opts, cb) {
     opts = opts || {};
-    this.ducautsProdApi = config.sr_ip_addr === Defaults.IP_SERVER_ADDR;
 
     this.request = opts.request || request;
     this.defaultProvider = opts.defaultProvider || Defaults.FIAT_RATE_PROVIDER;
