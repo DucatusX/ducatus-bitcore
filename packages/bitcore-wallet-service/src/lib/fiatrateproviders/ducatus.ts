@@ -3,7 +3,7 @@ const Common = require('../common');
 const Defaults = Common.Defaults;
 const config = require('../../config');
 
-const prodApi = config.sr_ip_addr !== Defaults.IP_SERVER_ADDR;
+const prodApi = config.sr_ip_addr === Defaults.IP_SERVER_ADDR;
 
 module.exports = {
   name: 'Ducatus',

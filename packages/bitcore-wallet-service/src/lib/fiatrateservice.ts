@@ -2,7 +2,6 @@ import * as async from 'async';
 import _ from 'lodash';
 import * as request from 'request';
 import { Storage } from './storage';
-const config = require('../config');
 
 const $ = require('preconditions').singleton();
 const Common = require('./common');
