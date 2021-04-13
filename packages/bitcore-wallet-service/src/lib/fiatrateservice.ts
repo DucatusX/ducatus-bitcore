@@ -81,6 +81,9 @@ export class FiatRateService {
       coins,
       (coin, next2) => {
         const provider = customCoins.includes(coin) ? this.providers[1] : this.providers[0];
+        if (customCoins.includes(coin)) {
+          console.log(`Get ${coin} from ${provider.url}`);
+        }
 
         this._retrieve(provider, coin, (err, res) => {
           if (err) {
