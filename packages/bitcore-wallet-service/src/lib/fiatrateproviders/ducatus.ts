@@ -1,11 +1,13 @@
 import _ from 'lodash';
-const config = require('../../config');
+import { findConfig } from '../../utils/findConfig';
+const config = findConfig();
 
 module.exports = {
   name: 'Ducatus',
-  url: config.producationMode
-    ? 'https://rates.ducatuscoins.com/api/v1/rates/'
-    : 'https://ducexpl.rocknblock.io/api/v1/rates/',
+  url:
+    config && config.productionMode
+      ? 'https://rates.ducatuscoins.com/api/v1/rates/'
+      : 'https://ducexpl.rocknblock.io/api/v1/rates/',
   parseFn(raw) {
     const rates = _.compact(
       _.map(raw, d => {

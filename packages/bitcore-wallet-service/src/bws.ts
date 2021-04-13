@@ -3,8 +3,11 @@ import * as fs from 'fs';
 import 'source-map-support/register';
 
 import { ExpressApp } from './lib/expressapp';
+import { findConfig } from './utils/findConfig';
 
-const config = require('./config');
+// const config = require('./config');
+const viewConfig = findConfig();
+const config = viewConfig && viewConfig !== undefined ? viewConfig : require('./config');
 const log = require('npmlog');
 log.debug = log.verbose;
 log.disableColor();

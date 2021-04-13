@@ -2,7 +2,7 @@ module.exports = {
   basePath: '/bws/api',
   disableLogs: false,
   port: 3232,
-  producationMode: false,
+  productionMode: false,
 
   // Uncomment to make BWS a forking server
   // cluster: true,
