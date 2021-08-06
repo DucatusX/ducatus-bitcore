@@ -48,7 +48,7 @@ export class StatisticPage implements OnInit {
   ) {
     const chain: string = this.apiProvider.getConfig().chain;
     const network: string = this.apiProvider.getConfig().network;
-    this.url = 'https://ducsite.rocknblock.io/api/v1/statistics/';
+    this.url = 'https://www.ducatuscoins.com/api/v1/statistics/';
     this.chainNetwork = {
       chain,
       network
@@ -128,7 +128,7 @@ export class StatisticPage implements OnInit {
 
     // get data for DUC/DUCX circulations
     await this.http
-      .get(`${this.url}/wallets_total/`)
+      .get(`${this.url}wallets_total/`)
       .subscribe((data: {duc, ducx}) => {
         const value = this.currentCurrency.toLowerCase();
         this.circulation = Math.floor(data[value] / this.divider).toString();
@@ -137,7 +137,7 @@ export class StatisticPage implements OnInit {
 
     // get data for daily swaps of DUC/DUCX
     await this.http
-      .get(`${this.url}/daily_swap/${this.currentCurrency === 'DUC' ? 'duc_to_ducx' : 'ducx_to_duc'}/`)
+      .get(`${this.url}daily_swap/${this.currentCurrency === 'DUC' ? 'duc_to_ducx' : 'ducx_to_duc'}/`)
       .subscribe((data: {amount, currency}) => {
         this.dailySwaps = data.amount;
       })
