@@ -14,6 +14,7 @@ const errors = {
   INSUFFICIENT_FUNDS: 'Insufficient funds',
   INSUFFICIENT_FUNDS_FOR_FEE: 'Insufficient funds for fee',
   INSUFFICIENT_ETH_FEE: 'Your linked ETH wallet does not have enough ETH for fee',
+  INSUFFICIENT_DUCX_FEE: 'Your linked DUCX wallet does not have enough DUCX for fee',
   INVALID_ADDRESS: 'Invalid address',
   INVALID_CHANGE_ADDRESS: 'Invalid change address',
   KEY_IN_COPAYER: 'Key already registered',

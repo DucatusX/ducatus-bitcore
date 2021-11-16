@@ -72,6 +72,10 @@ var errorSpec = [
     message: 'Your linked ETH wallet does not have enough ETH for fee.',
   },
   {
+    name: 'INSUFFICIENT_DUCX_FEE',
+    message: 'Your linked DUCX wallet does not have enough DUCX for fee.',
+  },
+  {
     name: 'LOCKED_FUNDS',
     message: 'Locked funds.',
   },
