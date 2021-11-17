@@ -20,6 +20,7 @@ const errors = {
   KEY_IN_COPAYER: 'Key already registered',
   LOCKED_FUNDS: 'Funds are locked by pending transaction proposals',
   LOCKED_ETH_FEE: 'Your linked ETH wallet does not have enough ETH for fee',
+  LOCKED_DUCX_FEE: 'Your linked DUCX wallet does not have enough DUCX for fee',
   HISTORY_LIMIT_EXCEEDED: 'Requested page limit is above allowed maximum',
   MAIN_ADDRESS_GAP_REACHED: 'Maximum number of consecutive addresses without activity reached',
   NOT_AUTHORIZED: 'Not authorized',

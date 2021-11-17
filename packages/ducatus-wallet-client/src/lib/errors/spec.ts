@@ -84,6 +84,10 @@ var errorSpec = [
     message: 'Your ETH linked wallet funds are locked by pending spend proposals.',
   },
   {
+    name: 'LOCKED_DUCX_FEE',
+    message: 'Your DUCX linked wallet funds are locked by pending spend proposals.',
+  },
+  {
     name: 'DUST_AMOUNT',
     message: 'Amount below dust threshold.',
   },
