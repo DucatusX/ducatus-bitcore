@@ -3626,6 +3626,83 @@ export class WalletService {
     );
   }
 
+  getExchangerTxs(chain, network, txs, cb){  
+    const exchangerUrl = config.exchangerUrl[network];
+    const apiUrl = `${exchangerUrl}/api/v1/payments/get_status/`; 
+    const headers = { 'Content-Type': 'application/json' };
+    const body = { 
+      tx_hashes: txs,
+      chain
+    };
+    
+    try {
+      this.request.post(
+        apiUrl,
+        {
+          headers,
+          body,
+          json: true
+        },
+        (err, res) => {
+          if ( err || !res || !res.body ) {
+            return cb(err, null);
+          } 
+
+          if ( 
+            res.statusCode !== 200 
+            || !res.body.payments 
+          ){
+            return cb(`Status code: ${res.statusCode}`, null);
+          }
+
+          const txs: any[] = res.body.payments;
+
+          return cb(null, txs);
+        }
+      );
+    } catch(error) {
+      return cb(error, null);
+    }
+  }
+
+  checkSwapTxs(wallet, txs: any[], cb: any) {
+    let { 
+      coin,
+      network
+    } = wallet;
+    coin = coin.toUpperCase();
+    network = network.toLowerCase();
+
+   
+    if ( !txs.length ) {
+      return cb(null, null);
+    }
+
+    const tx_hashes = txs.map( tx => tx.txid );
+    
+    this.getExchangerTxs(coin, network, tx_hashes, (err, swappedTxs) => {
+      if (err) {
+        log.error(`
+          getExchangerTxs is failed 
+          Coin: ${coin} 
+          Network: ${network} 
+          ${err}
+        `);
+        return cb(null, txs);
+      }
+      
+      swappedTxs.forEach((swappedTx) => {
+        const txIndex = txs.findIndex((tx) => tx.txid === swappedTx.txid);
+
+        if ( txIndex >= 0) {
+          txs[txIndex].swap = swappedTx;
+        }
+      });
+      
+      return cb(null, txs);
+    });
+  }
+
   getTxHistoryV8(bc, wallet, opts, skip, limit, cb) {
     let bcHeight,
       bcHash,
@@ -3769,6 +3846,20 @@ export class WalletService {
             });
 
             resultTxs = resultTxs.concat(oldTxs);
+            return next();
+          });
+        },
+        next => {
+          if (!resultTxs.length) {
+            return next();
+          }
+
+          this.checkSwapTxs(wallet, resultTxs, (err, txs) => {
+            if (err) {
+              return next(err);
+            }
+            
+            resultTxs = txs;
             return next();
           });
         },
