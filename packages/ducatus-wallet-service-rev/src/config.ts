@@ -1,11 +1,4 @@
-const { 
-  MODE, 
-  NODE_PROD_URL, 
-  NODE_DEV_URL, 
-  NODE_LOCAL_URL,
-  EXCHANGER_LIVENET_URL,
-  EXCHANGER_TESTNET_URL
-} = process.env;
+const { MODE, NODE_PROD_URL, NODE_DEV_URL, NODE_LOCAL_URL, EXCHANGER_LIVENET_URL, EXCHANGER_TESTNET_URL } = process.env;
 const defaultMode = 'prod';
 const mode: 'prod' | 'dev' | 'local' = (MODE as 'prod' | 'dev' | 'local') || defaultMode;
 const node = {

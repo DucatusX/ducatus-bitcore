@@ -3626,15 +3626,15 @@ export class WalletService {
     );
   }
 
-  getExchangerTxs(chain, network, txs, cb){  
+  getExchangerTxs(chain, network, txs, cb) {
     const exchangerUrl = config.exchangerUrl[network];
-    const apiUrl = `${exchangerUrl}/api/v1/payments/get_status/`; 
+    const apiUrl = `${exchangerUrl}/api/v1/payments/get_status/`;
     const headers = { 'Content-Type': 'application/json' };
-    const body = { 
+    const body = {
       tx_hashes: txs,
       chain
     };
-    
+
     try {
       this.request.post(
         apiUrl,
@@ -3644,14 +3644,11 @@ export class WalletService {
           json: true
         },
         (err, res) => {
-          if ( err || !res || !res.body ) {
+          if (err || !res || !res.body) {
             return cb(err, null);
-          } 
+          }
 
-          if ( 
-            res.statusCode !== 200 
-            || !res.body.payments 
-          ){
+          if (res.statusCode !== 200 || !res.body.payments) {
             return cb(`Status code: ${res.statusCode}`, null);
           }
 
@@ -3660,45 +3657,36 @@ export class WalletService {
           return cb(null, txs);
         }
       );
-    } catch(error) {
+    } catch (error) {
       return cb(error, null);
     }
   }
 
   checkSwapTxs(wallet, txs: any[], cb: any) {
-    let { 
-      coin,
-      network
-    } = wallet;
+    let { coin, network } = wallet;
     coin = coin.toUpperCase();
     network = network.toLowerCase();
 
-   
-    if ( !txs.length ) {
+    if (!txs.length) {
       return cb(null, null);
     }
 
-    const tx_hashes = txs.map( tx => tx.txid );
-    
+    const tx_hashes = txs.map(tx => tx.txid);
+
     this.getExchangerTxs(coin, network, tx_hashes, (err, swappedTxs) => {
       if (err) {
-        log.error(`
-          getExchangerTxs is failed 
-          Coin: ${coin} 
-          Network: ${network} 
-          ${err}
-        `);
+        log.error(`getExchangerTxs is failed. Coin: ${coin} Network: ${network} ${err} `);
         return cb(null, txs);
       }
-      
-      swappedTxs.forEach((swappedTx) => {
-        const txIndex = txs.findIndex((tx) => tx.txid === swappedTx.txid);
 
-        if ( txIndex >= 0) {
+      swappedTxs.forEach(swappedTx => {
+        const txIndex = txs.findIndex(tx => tx.txid === swappedTx.txid);
+
+        if (txIndex >= 0) {
           txs[txIndex].swap = swappedTx;
         }
       });
-      
+
       return cb(null, txs);
     });
   }
@@ -3858,7 +3846,7 @@ export class WalletService {
             if (err) {
               return next(err);
             }
-            
+
             resultTxs = txs;
             return next();
           });
