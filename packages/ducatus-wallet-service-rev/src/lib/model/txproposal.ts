@@ -32,7 +32,7 @@ enum SwapStatusesEnum {
 
 export interface IStatusHistory {
   status: SwapStatusesEnum;
-  date: Date;
+  date: string;
 }
 
 export interface ISwapTx {
