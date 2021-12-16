@@ -3682,11 +3682,17 @@ export class WalletService {
 
       swappedTxs.forEach(swappedTx => {
         const txIndex = txs.findIndex(tx => tx.txid === swappedTx.txid);
-        
+
         swappedTx.status = (swappedTx.status[0] + swappedTx.status.toLowerCase().substr(1)).replace(/_/g, ' ');
-        swappedTx.convertedFromAmount =  Utils.formatAmount(Number(swappedTx.convertedFromAmount), swappedTx.convertedFrom.toLowerCase());
-        swappedTx.convertedToAmount =  Utils.formatAmount(Number(swappedTx.convertedToAmount), swappedTx.convertedTo.toLowerCase());
-        swappedTx.statusHistory = swappedTx.statusHistory.map((statusRow) => {
+        swappedTx.convertedFromAmount = Utils.formatAmount(
+          Number(swappedTx.convertedFromAmount),
+          swappedTx.convertedFrom.toLowerCase()
+        );
+        swappedTx.convertedToAmount = Utils.formatAmount(
+          Number(swappedTx.convertedToAmount),
+          swappedTx.convertedTo.toLowerCase()
+        );
+        swappedTx.statusHistory = swappedTx.statusHistory.map(statusRow => {
           return {
             status: (statusRow.status[0] + statusRow.status.toLowerCase().substr(1)).replace(/_/g, ' '),
             date: moment(statusRow.date).format('MM/DD/YYYY hh:mm a')
