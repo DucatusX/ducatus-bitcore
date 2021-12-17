@@ -3645,7 +3645,7 @@ export class WalletService {
           json: true
         },
         (err, res) => {
-          if (err || !res ) {
+          if (err || !res) {
             return cb(err, null);
           }
 
@@ -3653,7 +3653,7 @@ export class WalletService {
             return cb(`Status code: ${res.statusCode}`, null);
           }
 
-          const txs: any[] = res.body && res.body.payments || [];
+          const txs: any[] = res.body && res.body.payments;
 
           return cb(null, txs);
         }
