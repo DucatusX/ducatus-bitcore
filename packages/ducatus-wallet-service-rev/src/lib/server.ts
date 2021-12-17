@@ -3645,7 +3645,7 @@ export class WalletService {
           json: true
         },
         (err, res) => {
-          if (err || !res || !res.body) {
+          if (err || !res ) {
             return cb(err, null);
           }
 
@@ -3653,7 +3653,7 @@ export class WalletService {
             return cb(`Status code: ${res.statusCode}`, null);
           }
 
-          const txs: any[] = res.body.payments;
+          const txs: any[] = res.body && res.body.payments || [];
 
           return cb(null, txs);
         }
@@ -3674,7 +3674,7 @@ export class WalletService {
 
     const tx_hashes = txs.map(tx => tx.txid);
 
-    this.getExchangerTxs(coin, network, tx_hashes, (err, swappedTxs) => {
+    this.getExchangerTxs(coin, network, tx_hashes, (err, swappedTxs = []) => {
       if (err) {
         log.error(`getExchangerTxs is failed. Coin: ${coin} Network: ${network} ${err} `);
         return cb(null, txs);
