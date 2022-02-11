@@ -1,4 +1,5 @@
 import { Transactions, Validation } from '@ducatus/ducatus-crypto-wallet-core-rev';
+import { Big } from 'big.js';
 import _ from 'lodash';
 import { IAddress } from 'src/lib/model/address';
 import { IChain } from '..';
@@ -81,12 +82,19 @@ export class DucXChain implements IChain {
   getWalletSendMaxInfo(server, wallet, opts, cb) {
     server.getBalance({}, (err, balance) => {
       if (err) return cb(err);
-      const { totalAmount, availableAmount } = balance;
-      let fee = opts.feePerKb * Defaults.MIN_DUCX_GAS_LIMIT;
+      const availableAmount = new Big(balance.availableAmount);
+      const feePerKb = new Big(opts.feePerKb);
+      const fee = feePerKb
+        .times(Defaults.DEFAULT_DUCX_GAS_LIMIT)
+        .toNumber(); 
+      const amount = availableAmount
+        .minus(fee)
+        .toNumber();
+      
       return cb(null, {
         utxosBelowFee: 0,
         amountBelowFee: 0,
-        amount: availableAmount - fee,
+        amount,
         feePerKb: opts.feePerKb,
         fee
       });
@@ -136,11 +144,16 @@ export class DucXChain implements IChain {
         }
         if (_.isNumber(opts.fee)) {
           // This is used for sendmax
-          gasPrice = feePerKb = Number((opts.fee / (inGasLimit || Defaults.DEFAULT_DUCX_GAS_LIMIT)).toFixed());
+          const nFee = new Big(opts.fee);
+          gasPrice = feePerKb = opts.fee
+            .div(inGasLimit || Defaults.DEFAULT_DUCX_GAS_LIMIT)
+            .toNumber();
         }
 
         const gasLimit = inGasLimit || Defaults.DEFAULT_DUCX_GAS_LIMIT;
-        opts.fee = feePerKb * gasLimit;
+        opts.fee = new Big(feePerKb)
+          .times(gasLimit)
+          .toNumber();
         return resolve({ feePerKb, gasPrice, gasLimit });
       });
     });
@@ -151,7 +164,11 @@ export class DucXChain implements IChain {
     const isERC20 = tokenAddress && !payProUrl;
     const isERC721 = isERC20 && tokenId;
 
-    let chain = isERC721 ? 'ERC721' : isERC20 ? 'DRC20' : 'DUCX';
+    let chain = isERC721 
+      ? 'ERC721' 
+      : isERC20 
+        ? 'DRC20' 
+        : 'DUCX';
 
     if (txp.wDucxAddress) {
       chain = 'TOB';
@@ -224,15 +241,16 @@ export class DucXChain implements IChain {
       }
 
       const { totalAmount, availableAmount } = balance;
-      
-      if (totalAmount < txp.getTotalAmount()) {
+      const  txTotalAmount = txp.getTotalAmount();
+      const txTotalAmountAndFee = new Big(txTotalAmount)
+        .plus(txp.fee || 0)
+        .toNumber();
+
+      if (totalAmount < txTotalAmount) {
         return cb(Errors.INSUFFICIENT_FUNDS);
-      } else if (
-        txp.fee 
-        && totalAmount < txp.getTotalAmount() + Number(txp.fee)
-      ) {
+      } else if ( totalAmount < txTotalAmountAndFee ) {
         return cb(Errors.INSUFFICIENT_FUNDS);
-      } else if (availableAmount < txp.getTotalAmount()) {
+      } else if (availableAmount < txTotalAmount) {
         return cb(Errors.LOCKED_FUNDS);
       } else {
         if (opts.tokenAddress) {
