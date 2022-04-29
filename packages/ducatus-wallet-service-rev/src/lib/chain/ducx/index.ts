@@ -148,9 +148,21 @@ export class DucXChain implements IChain {
               data: output.data,
               gasPrice
             });
-            output.gasLimit = inGasLimit || Defaults.DEFAULT_DUCX_GAS_LIMIT;
+
+            if (inGasLimit) {
+              output.gasLimit = inGasLimit;
+            } else if (opts.tokenAddress) {
+              output.gasLimit = Defaults.DEFAULT_DRC20_GAS_LIMIT;
+            } else {
+              output.gasLimit = Defaults.DEFAULT_DUCX_GAS_LIMIT;
+            }
+
           } catch (err) {
-            output.gasLimit = Defaults.DEFAULT_DUCX_GAS_LIMIT;
+            if (opts.tokenAddress) {
+              output.gasLimit = Defaults.DEFAULT_DRC20_GAS_LIMIT;
+            } else {
+              output.gasLimit = Defaults.DEFAULT_DUCX_GAS_LIMIT;
+            }
           }
         }
 
