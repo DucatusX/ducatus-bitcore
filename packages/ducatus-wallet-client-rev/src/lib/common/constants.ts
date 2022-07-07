@@ -251,6 +251,17 @@ export const Constants = {
         maxDecimals: 5,
         minDecimals: 2
       }
+    },
+    'qmn': {
+      toSatoshis: 1e3,
+      full: {
+        maxDecimals: 3,
+        minDecimals: 3
+      },
+      short: {
+        maxDecimals: 3,
+        minDecimals: 2
+      }
     }
   },
   COINS: [
@@ -273,10 +284,11 @@ export const Constants = {
     'g.o.l.d.',
     'jwan',
     'tkf',
-    'AA+'
+    'AA+',
+    'QMN'
   ],
   ERC20: ['usdc', 'pax', 'gusd'],
-  DRC20: ['jamasy', 'nuyasa', 'sunoba', 'dscmed', 'pog1', 'wde', 'mdxb', 'g.o.l.d.', 'jwan', 'tkf', 'aa+'],
+  DRC20: ['jamasy', 'nuyasa', 'sunoba', 'dscmed', 'pog1', 'wde', 'mdxb', 'g.o.l.d.', 'jwan', 'tkf', 'aa+', 'qmn'],
   UTXO_COINS: ['btc', 'bch', 'duc'],
   TOKEN_OPTS: {
     '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': {
@@ -362,6 +374,12 @@ export const Constants = {
       symbol: 'AA+',
       decimal: 5,
       address: '0x986083CD47dBBC931585D2FE2330FD29B3e849b0'
+    },
+    '0xba27f60b19Da2ec1F8216417685504585De2e9Bd': {
+      name: 'Queen Margherita Napoli',
+      symbol: 'QMN',
+      decimal: 3,
+      address: '0xba27f60b19Da2ec1F8216417685504585De2e9Bd'
     }
   }
 };

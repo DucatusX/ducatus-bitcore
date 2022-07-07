@@ -205,6 +205,11 @@ export class Utils {
         toSatoshis: 1e5,
         maxDecimals: 5,
         minDecimals: 2
+      },
+      'qmn': {
+        toSatoshis: 1e3,
+        maxDecimals: 3,
+        minDecimals: 2
       }
     };
 
