@@ -21,7 +21,8 @@ module.exports = {
     'G.O.L.D.': 'g.o.l.d.',
     JWAN: 'jwan',
     TKF: 'tkf',
-    'AA+': 'aa+'
+    'AA+': 'aa+',
+    QMN: 'qmn'
   },
 
   ERC20: {
@@ -40,7 +41,8 @@ module.exports = {
     'G.O.L.D.': 'g.o.l.d.',
     JWAN: 'jwan',
     TKF: 'tkf',
-    'AA+': 'aa+'
+    'AA+': 'aa+',
+    QMN: 'qmn'
   },
   UTXO_COINS: {
     BTC: 'btc',
@@ -153,6 +155,12 @@ module.exports = {
       symbol: 'AA+',
       decimal: 5,
       address: '0x986083CD47dBBC931585D2FE2330FD29B3e849b0'
+    },
+    '0xba27f60b19Da2ec1F8216417685504585De2e9Bd': {
+      name: 'Queen Margherita Napoli',
+      symbol: 'QMN',
+      decimal: 3,
+      address: '0xba27f60b19Da2ec1F8216417685504585De2e9Bd'
     }
   }
 };
