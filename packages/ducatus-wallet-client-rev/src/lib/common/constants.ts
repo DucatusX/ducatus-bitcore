@@ -375,11 +375,11 @@ export const Constants = {
       decimal: 5,
       address: '0x986083CD47dBBC931585D2FE2330FD29B3e849b0'
     },
-    '0xba27f60b19Da2ec1F8216417685504585De2e9Bd': {
+    '0x9Ddc5c88e27231c3DF4424ABd7508c70f748fc4A': {
       name: 'Queen Margherita Napoli',
       symbol: 'QMN',
       decimal: 3,
-      address: '0xba27f60b19Da2ec1F8216417685504585De2e9Bd'
+      address: '0x9Ddc5c88e27231c3DF4424ABd7508c70f748fc4A'
     }
   }
 };
