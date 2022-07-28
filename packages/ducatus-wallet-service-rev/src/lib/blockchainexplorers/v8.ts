@@ -407,6 +407,8 @@ export class V8 {
         this.request
           .get(url, {})
           .then(ret => {
+            console.log('ret');
+            console.log(ret);
             try {
               ret = JSON.parse(ret);
               // only process right responses.
