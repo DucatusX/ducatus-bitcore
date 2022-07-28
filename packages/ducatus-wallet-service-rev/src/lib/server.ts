@@ -1756,7 +1756,7 @@ export class WalletService {
         this.logw('Error estimating fee', err);
         return cb(err);
       }
-
+      console.log("result: " + result);
       const failed = [];
       const levels = _.fromPairs(
         _.map(points, p => {
@@ -1774,7 +1774,7 @@ export class WalletService {
         const logger = network == 'livenet' ? this.logw : this.logi;
         logger('Could not compute fee estimation in ' + network + ': ' + failed.join(', ') + ' blocks.');
       }
-
+      console.log("levels: " + levels);
       return cb(null, levels, failed.length);
     });
   }
@@ -1858,6 +1858,7 @@ export class WalletService {
             result.feePerKb = +(feeLevel.feePerKb * (level.multiplier || 1)).toFixed(0);
             result.nbBlocks = feeLevel.nbBlocks;
           }
+          console.log("result:: " + result)
           return result;
         });
 
