@@ -409,7 +409,6 @@ export class V8 {
           .then(ret => {
             try {
               ret = JSON.parse(ret);
-              console.log(ret);
               // only process right responses.
               if (!_.isUndefined(ret.blocks) && ret.blocks != x) {
                 log.info(`Ignoring response for ${x}:` + JSON.stringify(ret));
