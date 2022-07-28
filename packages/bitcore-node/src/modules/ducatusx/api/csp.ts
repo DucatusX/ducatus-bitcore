@@ -134,15 +134,15 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
       .sort({ blockHeight: -1 })
       .limit(20 * 200)
       .toArray();
-
+    console.log('MinGasPrices: ' + minGasPrices[network]);
     const blockGasPrices = txs
       .map(tx => Number(Math.max(tx.gasPrice, minGasPrices[network])))
       .filter(gasPrice => gasPrice)
       .sort((a, b) => b - a);
-
+    console.log('blockGasPrices: ' + blockGasPrices);
     const whichQuartile = Math.min(target, 4) || 1;
     const quartileMedian = StatsUtil.getNthQuartileMedian(blockGasPrices, whichQuartile);
-
+    console.log('quartileMedian: ' + quartileMedian);
     const roundedGwei = (quartileMedian / 1e9).toFixed(2);
     const feerate = Number(roundedGwei) * 1e9;
     return { feerate, blocks: target };
