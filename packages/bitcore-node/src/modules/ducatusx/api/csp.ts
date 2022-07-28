@@ -49,8 +49,8 @@ interface ERC20Transfer
   }> {}
 
 const minGasPrices = {
-  mainnet: 23300000000,
-  testnet: 23300000000
+  mainnet: 233000000000,
+  testnet: 233000000000
 };
 
 export class ETHStateProvider extends InternalStateProvider implements IChainStateService {
