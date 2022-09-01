@@ -180,10 +180,9 @@ export class DucXChain implements IChain {
 
         let gasLimit: number;
 
-        if(opts.isContractCall) {
+        if (opts.isContractCall) {
           gasLimit = Defaults.DEFAULT_DUCX_CONTRACT_GAS_LIMIT;
-        }
-        else {
+        } else {
           gasLimit = inGasLimit || Defaults.DEFAULT_DUCX_GAS_LIMIT;
         }
 
