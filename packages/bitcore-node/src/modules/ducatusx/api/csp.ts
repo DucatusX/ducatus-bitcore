@@ -138,7 +138,7 @@ export class ETHStateProvider extends InternalStateProvider implements IChainSta
       .map(tx => Number(Math.max(tx.gasPrice, minGasPrices[network])))
       .filter(gasPrice => gasPrice)
       .sort((a, b) => b - a);
-
+    
     const whichQuartile = Math.min(target, 4) || 1;
     let quartileMedian = StatsUtil.getNthQuartileMedian(blockGasPrices, whichQuartile);
 
