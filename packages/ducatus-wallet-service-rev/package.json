@@ -1,5 +1,5 @@
 {
-  "name": "@ducatus/ducatus-wallet-service-rev", 
+  "name": "@ducatus/ducatus-wallet-service-rev",
   "description": "A service for Mutisig HD Bitcoin Wallets",
   "author": "BitPay Inc",
   "version": "8.20.38",

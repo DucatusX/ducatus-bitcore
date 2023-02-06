@@ -7,7 +7,7 @@ require('heapdump');
 const services: Array<any> = [];
 
 export const PruningWorker = async () => {
-  process.on('unhandledRejection', (error: any) => {
+  process.on('unhandledRejection', error => {
     console.error('Unhandled Rejection at:', error.stack || error);
     stop();
   });

@@ -21,7 +21,7 @@ export class PruningService {
   async start() {
     this.detectAndClear().then(() => {
       if (args.EXIT) {
-        process.emit('SIGINT', 'SIGINT');
+        process.emit('SIGINT');
       }
     });
   }
