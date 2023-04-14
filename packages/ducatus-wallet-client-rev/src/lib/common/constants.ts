@@ -312,7 +312,21 @@ export const Constants = {
     'mpe'
   ],
   ERC20: ['usdc', 'usdt', 'pax', 'gusd'],
-  DRC20: ['jamasy', 'nuyasa', 'sunoba', 'dscmed', 'pog1', 'wde', 'mdxb', 'g.o.l.d.', 'jwan', 'tkf', 'aa+', 'qmn', 'mpe'],
+  DRC20: [
+    'jamasy',
+    'nuyasa',
+    'sunoba',
+    'dscmed',
+    'pog1',
+    'wde',
+    'mdxb',
+    'g.o.l.d.',
+    'jwan',
+    'tkf',
+    'aa+',
+    'qmn',
+    'mpe'
+  ],
   UTXO_COINS: ['btc', 'bch', 'duc'],
   TOKEN_OPTS: {
     '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': {
@@ -382,7 +396,7 @@ export const Constants = {
       address: '0x60DFde24CdE54df342E52a72248B2bD54e0ea4A5'
     },
     '0xcDdd562C0cF8c262AD8A5c1A476cdBBE114FcC28': {
-      name: 'G.O.L.D.',
+      name: 'GOLD MV',
       symbol: 'G.O.L.D.',
       decimal: 18,
       address: '0xcDdd562C0cF8c262AD8A5c1A476cdBBE114FcC28'
@@ -416,6 +430,6 @@ export const Constants = {
       symbol: 'MPE',
       decimal: 8,
       address: '0x212bbB33b6A56a7Ee0819dd82bE01c285F64Fb49'
-    },
+    }
   }
 };

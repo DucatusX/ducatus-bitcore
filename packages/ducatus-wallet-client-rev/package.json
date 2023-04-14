@@ -2,7 +2,7 @@
   "name": "@ducatus/ducatus-wallet-client-rev",
   "description": "Client for @ducatus/ducatus-wallet-service-rev",
   "author": "BitPay Inc",
-  "version": "8.21.31",
+  "version": "8.22.31",
   "license": "MIT",
   "main": "ts_build/index.js",
   "types": "ts_build/index.d.js",
