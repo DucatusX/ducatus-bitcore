@@ -284,6 +284,17 @@ export const Constants = {
         maxDecimals: 8,
         minDecimals: 2
       }
+    },
+    balisol: {
+      toSatoshis: 1e2,
+      full: {
+        maxDecimals: 2,
+        minDecimals: 2
+      },
+      short: {
+        maxDecimals: 2,
+        minDecimals: 2
+      }
     }
   },
   COINS: [
@@ -309,7 +320,8 @@ export const Constants = {
     'tkf',
     'AA+',
     'QMN',
-    'mpe'
+    'mpe',
+    'balisol'
   ],
   ERC20: ['usdc', 'usdt', 'pax', 'gusd'],
   DRC20: [
@@ -325,7 +337,8 @@ export const Constants = {
     'tkf',
     'aa+',
     'qmn',
-    'mpe'
+    'mpe',
+    'balisol'
   ],
   UTXO_COINS: ['btc', 'bch', 'duc'],
   TOKEN_OPTS: {
@@ -430,6 +443,12 @@ export const Constants = {
       symbol: 'MPE',
       decimal: 8,
       address: '0x212bbB33b6A56a7Ee0819dd82bE01c285F64Fb49'
+    },
+    '0x519cb2e8f165c2fc2297f544639c71af33dae148': {
+      name: 'BaliSol',
+      symbol: 'BALISOL',
+      decimal: 2,
+      address: '0x519cb2e8f165c2fc2297f544639c71af33dae148'
     }
   }
 };
