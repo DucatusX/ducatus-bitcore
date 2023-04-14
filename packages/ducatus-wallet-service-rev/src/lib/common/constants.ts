@@ -177,6 +177,6 @@ module.exports = {
       symbol: 'MPE',
       decimal: 8,
       address: '0x212bbB33b6A56a7Ee0819dd82bE01c285F64Fb49'
-    },
+    }
   }
 };
