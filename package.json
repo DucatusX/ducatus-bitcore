@@ -70,7 +70,7 @@
     "typescript-eslint-parser": "^15.0.0"
   },
   "dependencies": {
-    "lerna": "^3.20.2"
+    "lerna": "^7.1.1"
   },
   "husky": {
     "hooks": {
