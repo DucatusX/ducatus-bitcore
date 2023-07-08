@@ -52,7 +52,7 @@
     "ripple-binary-codec": "0.2.4",
     "ripple-hashes": "0.3.4",
     "ripple-lib": "1.6.3",
-    "web3": "1.2.4"
+    "web3": "4.0.2"
   },
   "deprecated": false,
   "description": "rpc wrapper for multiple rpcs",
