@@ -18,7 +18,7 @@
     "bloom-filter": "^0.2.0",
     "buffers": "github:bitpay/node-buffers#v0.1.2-bitpay",
     "@ducatus/ducatus-core-lib-rev": "8.16.7",
-    "socks5-client": "^0.3.6"
+    "socks5-client": "^1.2.8"
   },
   "description": "Interface to the Ducatus P2P network for bitcore",
   "devDependencies": {
