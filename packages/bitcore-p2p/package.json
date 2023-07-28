@@ -22,7 +22,7 @@
     "bitcore-lib": "^8.16.2",
     "bloom-filter": "^0.2.0",
     "buffers": "bitpay/node-buffers#v0.1.2-bitpay",
-    "socks5-client": "^0.3.6"
+    "socks5-client": "^1.2.8"
   },
   "devDependencies": {
     "bitcore-build": "^8.16.2",
