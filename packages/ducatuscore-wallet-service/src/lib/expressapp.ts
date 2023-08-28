@@ -1468,6 +1468,17 @@ export class ExpressApp {
       });
     });
 
+    router.get('/v1/chains', (req, res) => {
+      getServerWithAuth(req, res, server => {
+        server.getChainsConfig({}, (err, data) => {
+          if (err) {
+            return returnError(err, res, req);
+          }
+          res.json(data);
+        });
+      });
+    });
+
      this.app.use(opts.basePath || '/dws/api', router);
 
     if (config.staticRoot) {

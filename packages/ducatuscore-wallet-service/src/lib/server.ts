@@ -30,6 +30,7 @@ import {
   Wallet
 } from './model';
 import { Storage } from './storage';
+import { getNodeConfig } from './config/config';
 
 const config = require('../config');
 const Uuid = require('uuid');
@@ -4643,6 +4644,20 @@ export class WalletService implements IWalletService {
         resolve(true);
       });
     });
+  }
+
+  /**
+   * Get chains config.
+   * @param {Object} opts
+   * @returns {Object} balance - Total amount & locked amount.
+   */
+  getChainsConfig(opts, cb) {
+    const foundConfig = getNodeConfig();
+    if (foundConfig) {
+      cb(null, foundConfig.chains);
+    } else {
+      cb(new Error('Node chains config is not found'));
+    }
   }
 }
 
