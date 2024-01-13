@@ -18,6 +18,8 @@ export function getNodeConfig(): ConfigType | undefined {
         const expanded = path[0] === '~' ? path.replace('~', homedir()) : path;
         const ducatuscoreConfig = require(expanded) as { ducatuscoreNode: ConfigType };
         foundConfig = ducatuscoreConfig.ducatuscoreNode;
+        // auditors did not like that DUC config contains a password and login
+        delete foundConfig.DUC;
       } catch (e) {
         foundConfig = undefined;
       }
