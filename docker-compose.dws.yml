@@ -4,7 +4,7 @@ services:
     image: mongo:5.0
     restart: always
     network_mode: "host"  
-    # command: mongod --port 27001
+    command: mongod --port 27001
     volumes: 
       - ./.dws_db:/data/dws_db
 
