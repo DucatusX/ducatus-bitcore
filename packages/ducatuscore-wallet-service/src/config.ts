@@ -21,6 +21,7 @@ const ducNodeWs = `ws://${DUC_NODE_URL}` || 'ws://localhost:3000';
 
 const Config = () => {
   let defaultConfig = {
+    ignoreRateLimiter: true,
     basePath: '/dws/api',
     disableLogs: false,
     port: DWS_PORT,

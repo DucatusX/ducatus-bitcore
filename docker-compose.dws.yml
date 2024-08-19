@@ -3,7 +3,7 @@ services:
   database-dws:
     image: mongo:5.0
     restart: always
-    network_mode: "host"  
+    network_mode: "host" # will run mongo as on host
     command: mongod --port 27001
     volumes: 
       - ./.dws_db:/data/dws_db
