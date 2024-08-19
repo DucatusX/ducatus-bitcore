@@ -207,10 +207,10 @@ export const Defaults = {
 
   RateLimit: {
     createWallet: {
-      windowMs: 60 * 60 * 1000, // hour window
-      delayAfter: 8, // begin slowing down responses after the 3rd request
-      delayMs: 3000, // slow down subsequent responses by 3 seconds per request
-      max: 30, // start blocking after 20 request
+      windowMs: 30 * 60 * 1000, // half an hour window
+      delayAfter: 16, // begin slowing down responses after the 6rd request
+      delayMs: 1000, // slow down subsequent responses by 1 seconds per request
+      max: 60, // start blocking after 40 request
       message: 'Too many wallets created from this IP, please try again after an hour'
     },
     estimateFee: {
