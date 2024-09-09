@@ -379,7 +379,8 @@ HDPublicKey._validateBufferArguments = function(arg) {
   checkBuffer('parentFingerPrint', HDPublicKey.ParentFingerPrintSize);
   checkBuffer('childIndex', HDPublicKey.ChildIndexSize);
   checkBuffer('chainCode', HDPublicKey.ChainCodeSize);
-  checkBuffer('publicKey', HDPublicKey.PublicKeySize);
+  // NOTE: public key buffer size isn't always = PublicKeySize
+  // checkBuffer('publicKey', HDPublicKey.PublicKeySize);
   if (arg.checksum && arg.checksum.length) {
     checkBuffer('checksum', HDPublicKey.CheckSumSize);
   }

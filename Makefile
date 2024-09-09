@@ -1,5 +1,6 @@
 lines?=1000
 
+# Change "docker compose" to "docker-compose" if using older version of docker
 compose_dws=sudo docker compose -f docker-compose.dws.yml
 compose_node=sudo docker compose -f docker-compose.node.yml
 
