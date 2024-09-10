@@ -202,8 +202,9 @@ export class BtcChain implements IChain {
 
   checkDust(output) {
     const dustThreshold = Math.max(Defaults.MIN_OUTPUT_AMOUNT, this.ducatuscoreLib.Transaction.DUST_AMOUNT);
+    const numAmount = Number(output.amount) // to deal with amount as string
 
-    if (output.amount < dustThreshold) {
+    if (numAmount < dustThreshold) {
       return Errors.DUST_AMOUNT;
     }
   }

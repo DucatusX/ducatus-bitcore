@@ -142,8 +142,10 @@ export class Utils {
   }
 
   static formatAmountInBtc(amount) {
+    const numAmount = Number(amount) // to deal with amount as string
+
     return (
-      Utils.formatAmount(amount, 'btc', {
+      Utils.formatAmount(numAmount, 'btc', {
         minDecimals: 8,
         maxDecimals: 8
       }) + 'btc'
