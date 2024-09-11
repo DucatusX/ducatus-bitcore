@@ -861,6 +861,7 @@ Transaction.prototype.to = function(address, amount) {
     return this;
   }
 
+  amount = +amount;
   $.checkArgument(
     JSUtil.isNaturalNumber(amount),
     'Amount is expected to be a positive integer'
