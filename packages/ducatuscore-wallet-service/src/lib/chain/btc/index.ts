@@ -540,7 +540,7 @@ export class BtcChain implements IChain {
       instantAcceptanceEscrow: opts.instantAcceptanceEscrow
     };
     const escrowAmount = opts.instantAcceptanceEscrow || 0;
-    const txpAmount = txp.getTotalAmount() + escrowAmount;
+    const txpAmount = Number(txp.getTotalAmount()) + escrowAmount;
     const baseTxpSize = this.getEstimatedSize(txp, feeOpts);
     const baseTxpFee = (baseTxpSize * txp.feePerKb) / 1000;
     const sizePerInput = this.getEstimatedSizeForSingleInput(txp, feeOpts);
@@ -774,8 +774,8 @@ export class BtcChain implements IChain {
           availableAmount = balance.availableAmount;
         }
 
-        if (totalAmount < txp.getTotalAmount()) return cb(Errors.INSUFFICIENT_FUNDS);
-        if (availableAmount < txp.getTotalAmount()) return cb(Errors.LOCKED_FUNDS);
+        if (totalAmount < Number(txp.getTotalAmount())) return cb(Errors.INSUFFICIENT_FUNDS);
+        if (availableAmount < Number(txp.getTotalAmount())) return cb(Errors.LOCKED_FUNDS);
 
         utxos = sanitizeUtxos(utxos);
 
