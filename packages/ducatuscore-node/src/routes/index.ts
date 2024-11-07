@@ -3,7 +3,12 @@ import { Request, Response } from 'express';
 import express from 'express';
 import config from '../config';
 import { Config } from '../services/config';
-import { CacheMiddleware, CacheTimes, LogMiddleware, RateLimiter } from './middleware';
+import {
+  CacheMiddleware,
+  CacheTimes,
+  LogMiddleware
+  // RateLimiter
+} from './middleware';
 import { Web3Proxy } from './web3';
 
 const app = express();
