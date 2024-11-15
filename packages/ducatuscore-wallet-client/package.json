@@ -58,5 +58,5 @@
     "precommit": "npm run fix && npm run lint",
     "lint": "tslint -c ../../tslint.json 'src/**/*.ts'"
   },
-  "gitHead": "5a67adebec8de3059b41607f505eed0100cb48f5"
+  "gitHead": "bd30645c78dc90ae29c7d4c2fb4a13d64ce783c7"
 }
