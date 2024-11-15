@@ -1,6 +1,6 @@
 {
   "name": "@ducatus/ducatuscore-build",
-  "version": "10.0.6",
+  "version": "10.0.7",
   "description": "A helper for common tasks to build ducatuscore modules'",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,6 @@
     "karma-mocha": "^2.0.1",
     "lodash": "^4.17.15",
     "mocha": "^6.2.0"
-  }
+  },
+  "gitHead": "0016a292460e6eb9fb1447e17cf3b275cea0b96e"
 }
