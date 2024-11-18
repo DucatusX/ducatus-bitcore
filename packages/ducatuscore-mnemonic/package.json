@@ -1,6 +1,6 @@
 {
   "name": "@ducatus/ducatuscore-mnemonic",
-  "version": "10.0.12",
+  "version": "10.0.13",
   "description": "BIP39 Mnemonics implemented for Ducatuscore.",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "encryption"
   ],
   "devDependencies": {
-    "@ducatus/ducatuscore-build": "^10.0.12",
+    "@ducatus/ducatuscore-build": "^10.0.13",
     "assert": "^1.4.1",
     "brfs": "^2.0.1",
     "chai": "^4.2.0",
@@ -26,7 +26,7 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "@ducatus/ducatuscore-lib": "^10.0.12",
+    "@ducatus/ducatuscore-lib": "^10.0.13",
     "unorm": "^1.4.1"
   },
   "gitHead": "bd30645c78dc90ae29c7d4c2fb4a13d64ce783c7"
