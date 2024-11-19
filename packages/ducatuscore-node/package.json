@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "version": "10.0.15",
+  "version": "10.0.16",
   "main": "build/src/server.js",
   "bin": "bin/start",
   "scripts": {
@@ -74,16 +74,16 @@
     "typescript-eslint-parser": "15.0.0"
   },
   "dependencies": {
-    "@ducatus/crypto-rpc": "^10.0.15",
-    "@ducatus/ducatuscore-client": "^10.0.15",
-    "@ducatus/ducatuscore-crypto": "^10.0.15",
-    "@ducatus/ducatuscore-lib": "^10.0.15",
-    "@ducatus/ducatuscore-lib-cash": "^10.0.15",
-    "@ducatus/ducatuscore-lib-duc": "^10.0.15",
-    "@ducatus/ducatuscore-p2p": "^10.0.15",
-    "@ducatus/ducatuscore-p2p-cash": "^10.0.15",
-    "@ducatus/ducatuscore-p2p-duc": "^10.0.15",
-    "@ducatus/ducatuscore-wallet-client": "^10.0.15",
+    "@ducatus/crypto-rpc": "^10.0.16",
+    "@ducatus/ducatuscore-client": "^10.0.16",
+    "@ducatus/ducatuscore-crypto": "^10.0.16",
+    "@ducatus/ducatuscore-lib": "^10.0.16",
+    "@ducatus/ducatuscore-lib-cash": "^10.0.16",
+    "@ducatus/ducatuscore-lib-duc": "^10.0.16",
+    "@ducatus/ducatuscore-p2p": "^10.0.16",
+    "@ducatus/ducatuscore-p2p-cash": "^10.0.16",
+    "@ducatus/ducatuscore-p2p-duc": "^10.0.16",
+    "@ducatus/ducatuscore-wallet-client": "^10.0.16",
     "abi-decoder": "2.4.0",
     "body-parser": "1.18.3",
     "cors": "2.8.4",
@@ -101,5 +101,5 @@
     "web3": "1.7.0",
     "winston": "3.2.0"
   },
-  "gitHead": "322085c219b82ea87843ae517963fcc9cf804b47"
+  "gitHead": "632ab7582661694fbb4f9ea48463e263f62ea015"
 }
