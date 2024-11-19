@@ -4,7 +4,8 @@ const RpcClasses = {
   ETH: require('./eth/EthRpc'),
   XRP: require('./xrp/XrpRpc'),
   LNBTC: require('./lnd/LndRpc'),
-  DUCX: require('./ducx/DucxRpc')
+  DUCX: require('./ducx/DucxRpc'),
+  BNB: require('./bnb/BnbRpc'),
 };
 
 const TokenClasses = {
@@ -27,7 +28,11 @@ const TokenClasses = {
   },
   LNBTC: {
     native: require('./lnd/LndRpc')
-  }
+  },
+  BNB: {
+    native: require('./bnb/BnbRpc'),
+    ERC20: require('./erc20/Erc20Rpc')
+  },
 };
 
 class CryptoRpcProvider {

@@ -65,6 +65,17 @@ export let UNITS = {
       minDecimals: 2
     }
   },
+  'bnb': {
+    toSatoshis: 1e18,
+    full: {
+      maxDecimals: 8,
+      minDecimals: 8
+    },
+    short: {
+      maxDecimals: 6,
+      minDecimals: 2
+    }
+  },
   'busd': {
     toSatoshis: 1e18,
     full: {

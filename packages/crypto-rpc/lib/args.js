@@ -1,7 +1,7 @@
 const program = require('commander');
 
 const ERC20Currencies = ['ETH', 'PAX', 'USDC', 'GUSD'];
-const chainEQCurrencies = ['BTC', 'BCH', 'XRP', 'LNBTC', 'DUCX'];
+const chainEQCurrencies = ['BTC', 'BCH', 'XRP', 'LNBTC', 'DUCX', 'BNB'];
 
 program
   .option('--node <node>')

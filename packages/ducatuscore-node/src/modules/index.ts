@@ -53,7 +53,8 @@ class ModuleManager extends BaseModule {
     DUCX: './ducx',
     DUC: './ducatus',
     BCH: './bitcoin-cash',
-    XRP: './ripple'
+    XRP: './ripple',
+    BNB: './bnb',
   };
 
   loadConfigured() {
