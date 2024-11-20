@@ -120,6 +120,16 @@ const Config = () => {
           wsUrl:'https://api-xrp.bitcore.io'
         }
       },
+      bnb: {
+        livenet: {
+          url: ducxNode,
+          wsUrl: ducxNodeWs
+        },
+        testnet: {
+          url: ducxNode,
+          wsUrl: ducxNodeWs
+        }
+      },
       socketApiKey: SOCKET_API_KEY,
     },
     pushNotificationsOpts: {

@@ -7,6 +7,7 @@ import { DucChain } from './duc';
 import { DucxChain } from './ducx';
 import { EthChain } from './eth';
 import { XrpChain } from './xrp';
+import { BnbChain } from './bnb';
 
 const Constants = Common.Constants;
 const Defaults = Common.Defaults;
@@ -73,7 +74,8 @@ const chains: { [chain: string]: IChain } = {
   ETH: new EthChain(),
   DUCX: new DucxChain(),
   DUC: new DucChain(),
-  XRP: new XrpChain()
+  XRP: new XrpChain(),
+  BNB: new BnbChain(),
 };
 
 class ChainProxy {

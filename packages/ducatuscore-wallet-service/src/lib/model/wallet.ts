@@ -19,6 +19,7 @@ const Ducatuscore = {
   xrp: require('@ducatus/ducatuscore-lib'),
   ducx: require('@ducatus/ducatuscore-lib'),
   duc: require('@ducatus/ducatuscore-lib-duc'),
+  bnb: require('@ducatus/ducatuscore-lib')
 };
 
 export interface IWallet {

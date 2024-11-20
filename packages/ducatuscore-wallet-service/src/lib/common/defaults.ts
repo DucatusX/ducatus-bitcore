@@ -147,7 +147,34 @@ export const Defaults = {
         nbBlocks: 1, // 3 seconds
         defaultValue: 12
       }
-    ]
+    ],
+    bnb: [
+      {
+        name: 'urgent',
+        nbBlocks: 1,
+        defaultValue: 10000000000
+      },
+      {
+        name: 'priority',
+        nbBlocks: 2,
+        defaultValue: 5000000000
+      },
+      {
+        name: 'normal',
+        nbBlocks: 3,
+        defaultValue: 1000000000
+      },
+      {
+        name: 'economy',
+        nbBlocks: 4,
+        defaultValue: 1000000000
+      },
+      {
+        name: 'superEconomy',
+        nbBlocks: 4,
+        defaultValue: 1000000000
+      }
+    ],
   },
 
   // How many levels to fallback to if the value returned by the network for a given nbBlocks is -1
@@ -262,7 +289,8 @@ export const Defaults = {
     eth: 1000000000000, // 50 Gwei,
     duc: 10000 * 1000, // 10k sat/b
     ducx: 50000000000000,
-    xrp: 1000000000000
+    xrp: 1000000000000,
+    bnb: 1000000000000, // 50 Gwei,
   },
 
   MIN_TX_FEE: {
@@ -271,7 +299,8 @@ export const Defaults = {
     eth: 0,
     duc: 0,
     ducx: 0,
-    xrp: 0
+    xrp: 0,
+    bnb: 0,
   },
 
   MAX_TX_FEE: {
@@ -281,6 +310,7 @@ export const Defaults = {
     duc: 0.05 * 1e8,
     ducx: 1 * 1e18, // 1 ducx
     xrp: 1 * 1e6, // 1 xrp
+    bnb: 1 * 1e18, // 1 eth
   },
 
   // ETH

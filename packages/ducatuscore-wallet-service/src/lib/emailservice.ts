@@ -255,6 +255,7 @@ export class EmailService {
       eth: 'ETH',
       duc: 'DUCX',
       ducx: 'DUCX',
+      bnb: "BNB",
       xrp: 'XRP',
       usdc: 'USDC',
       matic: 'MATIC',
@@ -513,7 +514,8 @@ export class EmailService {
     return new Promise((resolve, reject) => {
       const chainIdMap = {
         eth: 1,
-        ducx: 137
+        ducx: 137,
+        bnb: 56,
       };
       // Get tokens
       this.request(

@@ -8,7 +8,8 @@ export const Constants = {
     ETH: 'eth',
     DUC: 'duc',
     DUCX: 'ducx',
-    XRP: 'xrp'
+    XRP: 'xrp',
+    BNB: 'bnb',
   },
 
   DUCATUSCORE_SUPPORTED_COINS: {
@@ -19,6 +20,7 @@ export const Constants = {
     DUC: 'duc',
     DUCX: 'ducx',
     XRP: 'xrp',
+    BNB: 'bnb',
     SHIB: 'shib',
     APE: 'ape',
     USDC: 'usdc',
@@ -109,7 +111,8 @@ export const Constants = {
 
   EVM_CHAINS: {
     ETH: 'eth',
-    DUCX: 'ducx'
+    DUCX: 'ducx',
+    BNB: 'bnb'
   },
 
   NETWORKS: {
@@ -151,7 +154,8 @@ export const Constants = {
   // There is a default value in defaults.ts that applies to UTXOs
   CONFIRMATIONS_TO_START_CACHING: {
     eth: 100,
-    ducx: 150
+    ducx: 150,
+    bnb: 100
   },
 
   // Individual chain settings for block throttling
@@ -160,6 +164,7 @@ export const Constants = {
     bch: { testnet: 300, livenet: 0 },
     eth: { testnet: 300, livenet: 0 },
     ducx: { testnet: 300, livenet: 12 }, // DUCX set to 12 because blocks normally occur every 1-2 seconds
+    bnb: { testnet: 300, livenet: 0 },
     xrp: { testnet: 300, livenet: 0 }
   } as { [chain: string]: { [network: string]: number } }
 };

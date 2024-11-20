@@ -33,6 +33,10 @@ const PROVIDERS = {
     xrp: {
       livenet: 'https://api-xrp.bitcore.io',
       testnet: 'https://api-xrp.bitcore.io'
+    },
+    bnb: {
+      livenet: nodeUrl,
+      testnet: nodeUrl
     }
   }
 };

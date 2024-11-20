@@ -69,7 +69,8 @@ export class BlockchainMonitor {
             eth: {},
             duc: {},
             ducx: {},
-            xrp: {}
+            xrp: {},
+            bnb: {},
           };
 
           const chainNetworkPairs = [];

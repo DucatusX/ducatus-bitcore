@@ -446,6 +446,7 @@ export class PushNotificationsService {
       bch: 'BCH',
       eth: 'ETH',
       ducx: 'DUCX',
+      bnb: "BNB",
       duc: 'DUC',
       xrp: 'XRP',
       usdc: 'USDC',
@@ -649,7 +650,8 @@ export class PushNotificationsService {
     return new Promise((resolve, reject) => {
       const chainIdMap = {
         eth: 1,
-        ducx: 137
+        ducx: 137,
+        bnb: 56,
       };
       // Get tokens
       this.request(
