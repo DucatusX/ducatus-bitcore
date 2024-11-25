@@ -17,7 +17,7 @@ export class RPC {
         method: 'POST',
         url: `http://${this.username}:${this.password}@${this.host}:${this.port}${walletName ? '/wallet/' + walletName : ''}`,
         body: {
-          jsonrpc: '1.0',
+          jsonrpc: '2.0',
           id: Date.now(),
           method,
           params
