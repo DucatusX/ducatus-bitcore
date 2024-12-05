@@ -155,7 +155,7 @@ export let DUCX_TOKEN_OPTS = {
   '0x4851f60C516F2E81ec6c3E926Fcd314aEf246a5D_d': {
     name: 'X-GEN TOKEN',
     symbol: 'X-GEN',
-    decimals: 8,
+    decimals: 18,
     address: '0x4851f60C516F2E81ec6c3E926Fcd314aEf246a5D',
   },
 };

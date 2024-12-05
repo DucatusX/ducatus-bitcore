@@ -375,7 +375,7 @@ export let UNITS = {
     }
   },
   'x-gen': {
-    toSatoshis: 1e8,
+    toSatoshis: 1e18,
     full: {
       maxDecimals: 8,
       minDecimals: 8
