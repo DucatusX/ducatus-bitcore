@@ -151,5 +151,11 @@ export let DUCX_TOKEN_OPTS = {
     symbol: 'BALISOL',
     decimal: 2,
     address: '0x519cb2e8f165c2fc2297f544639c71af33dae148'
-  }
+  },
+  '0x4851f60C516F2E81ec6c3E926Fcd314aEf246a5D_d': {
+    name: 'X-GEN TOKEN',
+    symbol: 'X-GEN',
+    decimals: 8,
+    address: '0x4851f60C516F2E81ec6c3E926Fcd314aEf246a5D',
+  },
 };
