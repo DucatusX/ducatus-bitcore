@@ -1,6 +1,6 @@
 {
   "name": "@ducatus/ducatuscore-build",
-  "version": "10.0.17",
+  "version": "10.0.18",
   "description": "A helper for common tasks to build ducatuscore modules'",
   "main": "index.js",
   "scripts": {
@@ -24,5 +24,5 @@
     "lodash": "^4.17.15",
     "mocha": "^6.2.0"
   },
-  "gitHead": "c0f7d915463ea79ab63287ae09224d4dd95a3154"
+  "gitHead": "a2ea33ba83b7b6851ff7c16848570bd1107cd442"
 }
