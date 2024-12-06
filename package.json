@@ -14,6 +14,8 @@
     "compile": "./node_modules/.bin/lerna run compile",
     "lint": "lerna run lint",
     "fix": "lerna run fix",
+    "lerna:build": "lerna run build --scope='{@ducatus/ducatuscore-crypto,@ducatus/ducatuscore-wallet-client'}",
+    "lerna:publish": "npm run lerna:build; lerna publish --force-publish",
     "test:ducatuscore-wallet-service": "cd ./packages/ducatuscore-wallet-service && npm run test",
     "test:ducatuscore-wallet-client": "cd ./packages/ducatuscore-wallet-client && npm run test",
     "test:ducatuscore-crypto": "cd ./packages/ducatuscore-crypto && npm run test",
@@ -46,5 +48,6 @@
   "dependencies": {
     "lerna": "^3.22.1",
     "typescript": "4.9.4"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
