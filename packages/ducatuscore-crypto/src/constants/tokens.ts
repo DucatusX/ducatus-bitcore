@@ -152,10 +152,10 @@ export let DUCX_TOKEN_OPTS = {
     decimal: 2,
     address: '0x519cb2e8f165c2fc2297f544639c71af33dae148'
   },
-  '0x4851f60C516F2E81ec6c3E926Fcd314aEf246a5D_d': {
+  '0x89db0C0B7A5099CD784FE6d48499EFed70a66fF7_d': {
     name: 'X-GEN TOKEN',
     symbol: 'X-GEN',
     decimals: 18,
-    address: '0x4851f60C516F2E81ec6c3E926Fcd314aEf246a5D',
+    address: '0x89db0C0B7A5099CD784FE6d48499EFed70a66fF7'
   },
 };
