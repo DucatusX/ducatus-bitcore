@@ -1,6 +1,6 @@
 {
   "name": "@ducatus/ducatuscore-lib",
-  "version": "10.0.20",
+  "version": "10.0.21",
   "description": "A pure and powerful JavaScript Bitcoin library.",
   "main": "index.js",
   "scripts": {
@@ -40,11 +40,11 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@ducatus/ducatuscore-build": "^10.0.20",
+    "@ducatus/ducatuscore-build": "^10.0.21",
     "brfs": "^2.0.1",
     "chai": "^4.2.0",
     "gulp": "^4.0.0",
     "sinon": "^7.1.1"
   },
-  "gitHead": "fbc4c237894d22c04d6f342ffc771fb1549bcf68"
+  "gitHead": "56bc7e763f1913224405931d8c23ae46a6faed0e"
 }
