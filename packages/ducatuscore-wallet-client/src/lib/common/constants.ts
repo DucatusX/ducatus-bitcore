@@ -54,7 +54,8 @@ export const Constants = {
     'AA+',
     'QMN',
     'mpe',
-    'balisol'
+    'balisol',
+    'x-gen'
   ],
 
   DUCATUSCORE_SUPPORTED_ETH_ERC20: [
@@ -84,7 +85,8 @@ export const Constants = {
     'AA+',
     'QMN',
     'mpe',
-    'balisol'
+    'balisol',
+    'x-gen'
   ],
 
   CHAINS: ['btc', 'bch', 'eth', 'duc', 'ducx', 'xrp'],
