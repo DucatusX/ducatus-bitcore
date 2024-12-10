@@ -12,8 +12,6 @@ services:
     build: .
     restart: always
     image: ducatuscore-node
-    volumes: 
-      - ./.node:/data/node
     links:
       - database-node
     networks:
