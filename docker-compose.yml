@@ -14,8 +14,7 @@ services:
       - /data/dws_db:/data/db
     networks:
       - ducatuscore-network
-    ports:
-      - 27001:27017 
+    command: mongod --port 27001
     
   node:
     build: .
