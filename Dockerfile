@@ -1,17 +1,15 @@
-FROM node:16.13.2
+FROM node:22.12.0
 
 RUN set -x \
     && node -v \
     && npm -v 
     
-RUN npm i -g npm@8.19.3
+RUN npm i -g yarn@1.22.22
 
 WORKDIR /ducatuscore
 
 COPY package*.json lerna.json ./
 
-RUN npm ci
+RUN yarn install
 
 COPY . .
-
-RUN npm run bootstrap && npm run compile
