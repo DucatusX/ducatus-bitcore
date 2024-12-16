@@ -1,8 +1,6 @@
 *debug.log
 node_modules/
 .env
-.env.development
-.env.production
 *ducatuscore.config.*
 .vscode
 .idea

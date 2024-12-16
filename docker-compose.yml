@@ -1,0 +1,54 @@
+services:
+  node-db:
+    image: mongo:5.0
+    restart: always
+    volumes: 
+      - /data/node_db:/data/db
+    networks:
+      - ducatuscore-network 
+
+  dws-db:
+    image: mongo:5.0
+    restart: always
+    volumes: 
+      - /data/dws_db:/data/db
+    networks:
+      - ducatuscore-network
+    ports:
+      - 27001:27017 
+    
+  node:
+    build: .
+    restart: always
+    image: ducatuscore-node
+    links:
+      - node-db
+    networks:
+      - ducatuscore-network
+    ports:
+      - 8100:8100
+      - 3001:3000
+    env_file: .env
+    environment:
+      - DB_HOST=node-db
+    working_dir: /ducatuscore/packages/ducatuscore-node
+    entrypoint: ["npm", "run", "start"]
+
+  dws:
+    build: .
+    restart: always
+    image: ducatuscore-dws
+    links:
+      - dws-db
+    networks:
+      - ducatuscore-network
+    env_file: .env
+    environment:
+      - DB_HOST=dws-db
+    working_dir: /ducatuscore/packages/ducatuscore-wallet-service
+    entrypoint: "./start.sh"
+
+networks:
+  ducatuscore-network:
+    name: ducatuscore-node-network
+    driver: bridge

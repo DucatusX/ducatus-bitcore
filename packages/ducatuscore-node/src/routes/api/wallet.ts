@@ -20,10 +20,10 @@ router.post('/', async function(req: Request, res: Response) {
       pubKey
     });
     if (existingWallet) {
-      return res.status(200).send('Wallet already exists');
+      res.status(200).send('Wallet already exists');
     }
     if (isTooLong(name) || isTooLong(pubKey) || isTooLong(path) || isTooLong(singleAddress)) {
-      return res.status(413).send('String length exceeds limit');
+      res.status(413).send('String length exceeds limit');
     }
     let result = await ChainStateProvider.createWallet({
       chain,
@@ -33,9 +33,9 @@ router.post('/', async function(req: Request, res: Response) {
       pubKey,
       path
     });
-    return res.send(result);
+    res.send(result);
   } catch (err) {
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
@@ -82,9 +82,9 @@ router.get('/:pubKey/check', Auth.authenticateMiddleware, async (req: Authentica
       network,
       wallet
     });
-    return res.send(result);
+    res.send(result);
   } catch (err) {
-    return res.status(500).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -98,7 +98,8 @@ router.post('/:pubKey', Auth.authenticateMiddleware, async (req: AuthenticatedRe
     let addresses = addressLines.map(({ address }) => address);
     for (const address of addresses) {
       if (isTooLong(address) || !Validation.validateAddress(chain, network, address)) {
-        return res.status(413).send('Invalid address');
+        res.status(413).send('Invalid address');
+        return;
       }
     }
     res.status(200);
@@ -112,10 +113,10 @@ router.post('/:pubKey', Auth.authenticateMiddleware, async (req: AuthenticatedRe
       addresses
     });
     clearInterval(keepAlive);
-    return res.end();
+    res.end();
   } catch (err) {
     clearInterval(keepAlive);
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
@@ -144,9 +145,9 @@ router.get('/:pubKey/balance', Auth.authenticateMiddleware, async (req: Authenti
       wallet: req.wallet!,
       args: req.query
     });
-    return res.send(result || { confirmed: 0, unconfirmed: 0, balance: 0 });
+    res.send(result || { confirmed: 0, unconfirmed: 0, balance: 0 });
   } catch (err) {
-    return res.status(500).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -160,9 +161,9 @@ router.get('/:pubKey/balance/:time', Auth.authenticateMiddleware, async (req: Au
       time,
       args: req.query
     });
-    return res.send(result || { confirmed: 0, unconfirmed: 0, balance: 0 });
+    res.send(result || { confirmed: 0, unconfirmed: 0, balance: 0 });
   } catch (err) {
-    return res.status(500).json(err);
+    res.status(500).json(err);
   }
 });
 
@@ -187,9 +188,9 @@ router.get('/:pubKey/utxos', Auth.authenticateMiddleware, async (req: Authentica
 router.get('/:pubKey', Auth.authenticateMiddleware, async function(req: AuthenticatedRequest, res: Response) {
   try {
     let wallet = req.wallet;
-    return res.send(wallet);
+    res.send(wallet);
   } catch (err) {
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 

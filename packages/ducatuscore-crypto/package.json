@@ -1,13 +1,13 @@
 {
   "name": "@ducatus/ducatuscore-crypto",
-  "version": "10.0.22",
   "description": "A multi-currency support library for address derivation, private key creation, and transaction creation",
+  "version": "10.0.22",
+  "license": "ISC",
   "main": "./ts_build/src/index.js",
   "types": "./ts_build/src/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf ts_build && tsc --version",
-    "compile": "npm run clean && npm run build",
+    "compile": "tsc",
+    "build": "npm run compile",
     "precommit": "npm run fix",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
@@ -34,6 +34,5 @@
     "ts-node": "8.1.0",
     "tslint": "5.14.0",
     "typescript": "4.9.4"
-  },
-  "gitHead": "8b30524b1265e7c8e673f2b50b0e7648243612db"
+  }
 }

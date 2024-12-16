@@ -446,7 +446,7 @@ export class PushNotificationsService {
       bch: 'BCH',
       eth: 'ETH',
       ducx: 'DUCX',
-      bnb: "BNB",
+      bnb: 'BNB',
       duc: 'DUC',
       xrp: 'XRP',
       usdc: 'USDC',

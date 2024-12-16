@@ -16,7 +16,7 @@ function streamCoins(req, res) {
   ChainStateProvider.streamAddressTransactions(payload);
 }
 
-router.get('/:address', function(req, res) {
+router.get('/:address', function(req: express.Request, res) {
   let { address, chain, network } = req.params;
   let { unspent, limit = 10, since } = req.query;
   let payload = {
@@ -33,7 +33,7 @@ router.get('/:address', function(req, res) {
 router.get('/:address/txs', streamCoins);
 router.get('/:address/coins', streamCoins);
 
-router.get('/:address/balance', async function(req, res) {
+router.get('/:address/balance', async function(req: express.Request, res) {
   let { address, chain, network } = req.params;
   try {
     let result = await ChainStateProvider.getBalanceForAddress({
@@ -42,9 +42,9 @@ router.get('/:address/balance', async function(req, res) {
       address,
       args: req.query
     });
-    return res.send(result || { confirmed: 0, unconfirmed: 0, balance: 0 });
+    res.send(result || { confirmed: 0, unconfirmed: 0, balance: 0 });
   } catch (err) {
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 

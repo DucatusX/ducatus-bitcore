@@ -2,6 +2,7 @@
   "name": "@ducatus/ducatuscore-client",
   "description": "Wallet client for Ducatuscore node",
   "version": "10.0.22",
+  "license": "ISC",
   "main": "./ts_build/index.js",
   "types": "./ts_build/index.d.ts",
   "engines": {
@@ -9,10 +10,9 @@
   },
   "scripts": {
     "build": "npm run compile",
-    "clean": "rm -rf ./ts_build",
     "pub": "npm run compile && npm publish --access public",
     "watch": "tsc --watch",
-    "compile": "npm run clean && tsc",
+    "compile": "tsc",
     "test": "mocha ./test/unit",
     "precommit": "npm run fix && npm run lint",
     "lint": "tslint -c ../../tslint.json 'src/**/*.ts'",
@@ -54,6 +54,5 @@
     "mocha": "5.0.5",
     "sinon": "4.4.8",
     "typescript": "4.9.4"
-  },
-  "gitHead": "8b30524b1265e7c8e673f2b50b0e7648243612db"
+  }
 }

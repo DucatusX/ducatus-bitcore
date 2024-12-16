@@ -1,7 +1,8 @@
 {
   "name": "@ducatus/crypto-rpc",
-  "version": "10.0.22",
   "description": "rpc wrapper for multiple rpcs",
+  "version": "10.0.22",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
     "ci:test": "npm run lint && npm run truffle:compile && npm run truffle:migrate && npm run truffle:test && mocha --recursive ./tests",
@@ -36,6 +37,5 @@
     "prettier": "^1.16.4",
     "sinon": "^7.3.1",
     "truffle": "5.1.0"
-  },
-  "gitHead": "8b30524b1265e7c8e673f2b50b0e7648243612db"
+  }
 }

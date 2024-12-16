@@ -463,10 +463,11 @@ export class ExpressApp {
           )
         );
       } catch (err) {
-        return returnError(err, res, req);
+        returnError(err, res, req);
+        return;
       }
 
-      return res.json(_.flatten(responses));
+      res.json(_.flatten(responses));
     });
 
     router.get('/v1/wallets/:identifier/', (req, res) => {
@@ -1471,7 +1472,7 @@ export class ExpressApp {
       });
     });
 
-     this.app.use(opts.basePath || '/dws/api', router);
+    this.app.use(opts.basePath || '/dws/api', router);
 
     if (config.staticRoot) {
       logger.debug(`Serving static files from ${config.staticRoot}`);

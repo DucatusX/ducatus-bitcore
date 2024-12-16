@@ -173,7 +173,7 @@ export class TxProposal {
   replaceTxByFee?: boolean;
   swap?: ISwapTx;
 
-  static create(opts) {
+  static create(opts: Partial<TxProposal & { noShuffleOutputs: any }>) {
     opts = opts || {};
 
     $.checkArgument(Utils.checkValueInCollection(opts.network, Constants.NETWORKS));

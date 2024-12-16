@@ -1,7 +1,7 @@
 import { BaseModule } from '..';
 import { EVMVerificationPeer } from '../,,/../../providers/chain-state/evm/p2p/EVMVerificationPeer';
-import { BNBStateProvider } from './api/csp';
 import { BnbRoutes } from './api/bnb-routes';
+import { BNBStateProvider } from './api/csp';
 import { BnbP2pWorker } from './p2p/p2p';
 
 export default class BNBModule extends BaseModule {
