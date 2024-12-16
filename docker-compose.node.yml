@@ -4,7 +4,7 @@ services:
     image: mongo:5.0
     restart: always
     volumes: 
-      - ./.node_db:/data/node_db
+      - /data/node_db:/data/db
     networks:
       - ducatuscore-node-network
     

@@ -6,7 +6,7 @@ services:
     network_mode: "host" # will run mongo as on host
     command: mongod --port 27001
     volumes:
-      - ./.dws_db:/data/dws_db
+      - /data/dws_db:/data/db
 
   ducatuscore-messagebroker:
     build: .
