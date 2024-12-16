@@ -13,6 +13,9 @@
 - ```
   yarn install
   ```
+- ```
+  yarn compile
+  ```
 
 ## Development
 

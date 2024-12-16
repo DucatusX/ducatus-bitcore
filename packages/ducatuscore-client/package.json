@@ -46,7 +46,7 @@
     "@types/ethereumjs-util": "5.2.0",
     "@types/mongodb": "4.0.7",
     "@types/node": "18.11.18",
-    "@types/request": "2.48.1",
+    "@types/request": "2.48.12",
     "@types/request-promise-native": "1.0.15",
     "@types/secp256k1": "3.5.0",
     "eslint-config-airbnb-base": "12.1.0",
