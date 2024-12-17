@@ -66,7 +66,6 @@ export class SocketService {
         socket.on('room', (room: string, payload: VerificationPayload) => {
           const chainNetwork = room.slice(0, room.lastIndexOf('/') + 1);
           const roomName = room.slice(room.lastIndexOf('/') + 1);
-          logger.info('Starting Socket Service: new connection');
           switch (roomName) {
             case 'wallets':
               if (dwsKeys.includes(payload.pubKey) && this.validateRequest(payload)) {

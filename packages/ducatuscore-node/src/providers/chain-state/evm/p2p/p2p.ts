@@ -80,7 +80,7 @@ export class EVMP2pWorker extends BaseP2PWorker<IEVMBlock> {
     this.events.on('connected', async () => {
       this.txSubscription = await this.web3!.eth.subscribe('pendingTransactions');
       this.txSubscription.subscribe(async (_err, txid) => {
-        if (!this.isCachedInv('TX', txid)) {
+        if (!this.isCachedInv('TX', txid) && txid) {
           this.cacheInv('TX', txid);
           const tx = (await this.web3!.eth.getTransaction(txid)) as ErigonTransaction;
           if (tx) {
@@ -124,7 +124,11 @@ export class EVMP2pWorker extends BaseP2PWorker<IEVMBlock> {
 
   async getClient() {
     try {
-      const nodeVersion = await this.web3!.eth.getNodeInfo();
+      if (!this.web3?.eth) {
+        return 'geth';
+      }
+
+      const nodeVersion = await this.web3.eth.getNodeInfo();
       const client = nodeVersion.split('/')[0].toLowerCase() as 'erigon' | 'geth';
       if (client !== 'erigon' && client !== 'geth') {
         // assume it's a geth fork, or at least more like geth.
@@ -147,15 +151,15 @@ export class EVMP2pWorker extends BaseP2PWorker<IEVMBlock> {
     while (!this.disconnecting && !this.stopping) {
       try {
         if (!this.web3) {
-          const { web3 } = await this.getWeb3();
+          const { web3 } = await this.getWeb3() as any;
           this.web3 = web3;
         }
         try {
           if (!this.client || !this.rpc) {
             this.client = await this.getClient();
-            this.rpc = new Rpcs[this.client](this.web3);
+            this.rpc = new Rpcs[this.client](this.web3!);
           }
-          connected = await this.web3.eth.net.isListening();
+          connected = await this.web3!.eth.net.isListening();
         } catch (e) {
           connected = false;
         }
@@ -178,7 +182,13 @@ export class EVMP2pWorker extends BaseP2PWorker<IEVMBlock> {
           );
         }
         disconnected = !connected;
-      } catch (e) {}
+      } catch (e: any) {
+        logger.error(
+          `${timestamp()} | Connected to peer: ${host}:${port} | Chain: ${this.chain} | Network: ${this.network} | ${
+            e.message
+          }`
+        );
+      }
       await wait(2000);
     }
   }
@@ -263,6 +273,13 @@ export class EVMP2pWorker extends BaseP2PWorker<IEVMBlock> {
     const startHeight = tip ? tip.height : chainConfig.syncStartHeight || 0;
     const startTime = Date.now();
     try {
+      if (!this.web3?.eth) {
+        logger.error(`Error syncing ${chain} ${network}, web3 error`);
+        await wait(2000);
+        this.syncing = false;
+        return this.sync();
+      }
+
       let bestBlock = await this.web3!.eth.getBlockNumber();
       let lastLog = 0;
       let currentHeight = tip ? tip.height : chainConfig.syncStartHeight || 0;
@@ -276,7 +293,14 @@ export class EVMP2pWorker extends BaseP2PWorker<IEVMBlock> {
         const { convertedBlock, convertedTxs } = await this.convertBlock(block);
         await this.processBlock(convertedBlock, convertedTxs);
         if (currentHeight === bestBlock) {
-          bestBlock = await this.web3!.eth.getBlockNumber();
+          if (!this.web3?.eth) {
+            logger.error(`Error syncing ${chain} ${network}, web3 error`);
+            await wait(2000);
+            this.syncing = false;
+            return this.sync();
+          }
+
+          bestBlock = await this.web3.eth.getBlockNumber();
         }
         tip = await ChainStateProvider.getLocalTip({ chain, network });
         currentHeight = tip ? tip.height + 1 : 0;
@@ -354,9 +378,9 @@ export class EVMP2pWorker extends BaseP2PWorker<IEVMBlock> {
     };
     const transactions = block.transactions as Array<ErigonTransaction | GethTransaction>;
     const convertedTxs = transactions.map(t => this.convertTx(t, convertedBlock));
-    const traceTxs = await this.rpc!.getTransactionsFromBlock(convertedBlock.height);
-
-    this.rpc!.reconcileTraces(convertedBlock, convertedTxs, traceTxs);
+    // TODO: This is verification. We only have a non-archive node. No public nodes found debug_traceBlockByNumber
+    // const traceTxs = await this.rpc!.getTransactionsFromBlock(convertedBlock.height);
+    // this.rpc!.reconcileTraces(convertedBlock, convertedTxs, traceTxs);
 
     return { convertedBlock, convertedTxs };
   }

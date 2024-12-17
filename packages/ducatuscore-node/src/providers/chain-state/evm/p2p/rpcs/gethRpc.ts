@@ -49,6 +49,7 @@ export class GethRPC implements IRpc {
         id: 1
       });
     } catch (e: any) {
+      logger.debug(`Convert block error. Block number: ${blockNumber}`);
       logger.debug('%o', e);
     }
     return result;
