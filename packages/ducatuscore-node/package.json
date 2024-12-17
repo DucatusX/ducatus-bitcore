@@ -9,7 +9,7 @@
   "main": "build/src/server.js",
   "bin": "bin/start",
   "scripts": {
-    "start": "npm run compile && node build/src/server.js",
+    "start": "node build/src/server.js",
     "debug": "npm run compile && node --trace-warnings --inspect build/src/server.js --DEBUG true",
     "compile": "tsc",
     "docs:build-html": "typedoc --out ./docs/html --tsconfig tsconfig.json ./src",
