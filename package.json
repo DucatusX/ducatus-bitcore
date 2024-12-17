@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev:dws": "nodemon --watch packages/ducatuscore-wallet-service/src -e .ts --exec \"cd packages/ducatuscore-wallet-service && env-cmd -f ../../.env yarn dev\"",
-    "dev:node": "nodemon --watch packages/ducatuscore-node/src -e .ts --exec \"cd packages/ducatuscore-node && env-cmd -f ../../.env yarn start\"",
+    "dev:node": "nodemon --watch packages/ducatuscore-node/src -e .ts --exec \"cd packages/ducatuscore-node && env-cmd -f ../../.env yarn dev\"",
     "compile": "lerna run compile",
     "lint": "lerna run lint",
     "fix": "lerna run fix",

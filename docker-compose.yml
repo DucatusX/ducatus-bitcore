@@ -39,7 +39,7 @@ services:
       - ducatuscore-network
     env_file: .env
     environment:
-      - DB_HOST=dws-db
+      - DWS_DB_HOST=dws-db
     working_dir: /ducatuscore/packages/ducatuscore-wallet-service
     entrypoint: ["npm", "run", "start"]
 
