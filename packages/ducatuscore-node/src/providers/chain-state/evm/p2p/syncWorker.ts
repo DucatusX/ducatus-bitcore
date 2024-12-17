@@ -46,6 +46,7 @@ export class SyncWorker {
   async messageHandler(msg) {
     switch (msg.message) {
       case 'shutdown':
+        logger.info('Stopping syncing thread ' + worker.threadId);
         this.stop();
         return;
       default:
@@ -95,7 +96,11 @@ export class SyncWorker {
   }
 
   async getClient() {
-    const nodeVersion = await this.web3!.eth.getNodeInfo();
+    if (!this.web3?.eth) {
+      return 'geth';
+    }
+
+    const nodeVersion = await this.web3.eth.getNodeInfo();
     const client = nodeVersion.split('/')[0].toLowerCase() as 'erigon' | 'geth';
     if (client !== 'erigon' && client !== 'geth') {
       // assume it's a geth fork, or at least more like geth.
@@ -138,6 +143,7 @@ export class SyncWorker {
     const height = block.number;
     const reward = this.getBlockReward(block);
 
+    logger.debug(`Convert block. Hash: ${block.hash} height: ${height}`);
     const convertedBlock: IEVMBlock = {
       chain: this.chain,
       network: this.network,
@@ -164,11 +170,14 @@ export class SyncWorker {
       stateRoot: Buffer.from(block.stateRoot)
     };
     const transactions = block.transactions as Array<ErigonTransaction>;
+    logger.debug(`Convert block txes. Hash: ${block.hash} height: ${height}`);
     const convertedTxs = transactions.map(t => this.convertTx(t, convertedBlock));
-    const traceTxs = await this.rpc!.getTransactionsFromBlock(convertedBlock.height);
-
-    this.rpc!.reconcileTraces(convertedBlock, convertedTxs, traceTxs);
-
+    logger.debug(`Trace block txes. Hash: ${block.hash} height: ${height}`);
+    // TODO: This is verification. We only have a non-archive node. No public nodes found debug_traceBlockByNumber
+    // const traceTxs = await this.rpc!.getTransactionsFromBlock(convertedBlock.height);
+    // logger.debug(`Reconcile trace block. Hash: ${block.hash} height: ${height}`);
+    // this.rpc!.reconcileTraces(convertedBlock, convertedTxs, traceTxs);
+    logger.debug(`Block is converted. Hash: ${block.hash} height: ${height}`);
     return { convertedBlock, convertedTxs };
   }
 

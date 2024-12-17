@@ -19,11 +19,17 @@ export class EVMVerificationPeer extends EVMP2pWorker implements IVerificationPe
   }
 
   async setupListeners() {
-    this.txSubscription = await this.web3!.eth.subscribe('pendingTransactions');
+    if (!this.web3?.eth) {
+      return;
+    }
+
+    this.txSubscription = await this.web3.eth.subscribe('pendingTransactions');
     this.txSubscription.subscribe((_err, tx) => {
-      this.events.emit('transaction', tx);
+      if (tx) {
+        this.events.emit('transaction', tx);
+      }
     });
-    this.blockSubscription = await this.web3!.eth.subscribe('newBlockHeaders');
+    this.blockSubscription = await this.web3.eth.subscribe('newBlockHeaders');
     this.blockSubscription.subscribe((_err, block) => {
       this.events.emit('block', block);
     });

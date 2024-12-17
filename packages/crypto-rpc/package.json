@@ -1,7 +1,7 @@
 {
   "name": "@ducatus/crypto-rpc",
+  "version": "10.0.23",
   "description": "rpc wrapper for multiple rpcs",
-  "version": "10.0.22",
   "license": "ISC",
   "main": "index.js",
   "scripts": {
@@ -37,5 +37,6 @@
     "prettier": "^1.16.4",
     "sinon": "^7.3.1",
     "truffle": "5.1.0"
-  }
+  },
+  "gitHead": "52d3f01fb9855b874fed2a085c027044af0d545c"
 }

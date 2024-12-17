@@ -19,4 +19,9 @@ testConfig.ducatuscoreNode.chains.XRP.testnet.provider.host = 'rippled';
 testConfig.ducatuscoreNode.chains.XRP.testnet.provider.port = 6006;
 testConfig.ducatuscoreNode.chains.XRP.testnet.provider.dataHost = 'rippled';
 
+testConfig.ducatuscoreNode.chains.BNB.regtest.trustedPeers[0].host = 'geth';
+testConfig.ducatuscoreNode.chains.BNB.regtest.trustedPeers[0].port = 30303;
+testConfig.ducatuscoreNode.chains.BNB.regtest.providers[0].host = 'geth';
+testConfig.ducatuscoreNode.chains.BNB.regtest.providers[0].port = 8546;
+
 module.exports = testConfig;
