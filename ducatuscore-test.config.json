@@ -1,6 +1,6 @@
 {
   "ducatuscoreNode": {
-    "modules": ["./bitcoin", "./bitcoin-cash", "./ethereum", "./ripple", "./ducatus", "./ducx"], 
+    "modules": ["./bitcoin", "./bitcoin-cash", "./ethereum", "./ripple", "./ducatus", "./ducx", "./bnb"],
     "services": {
       "api": {
         "wallets": {
@@ -60,7 +60,7 @@
       },
       "DUC": {
         "mainnet": {
-          "chainSource": "p2p", 
+          "chainSource": "p2p",
           "trustedPeers": [
             {
               "host": "194.135.84.108",
@@ -118,6 +118,39 @@
             "port": 8455,
             "protocol": "ws"
           }
+        }
+      },
+      "BNB": {
+        "mainnet": {
+          "chainSource": "p2p",
+          "trustedPeers": [
+            {
+              "host": "localhost",
+              "port": 40404
+            }
+          ],
+          "providers": [{
+            "host": "localhost",
+            "protocol": "http",
+            "port": 9556
+          }],
+          "threads": 0,
+          "syncStartHeight": 26526287
+        },
+        "regtest": {
+          "chainSource": "p2p",
+          "trustedPeers": [
+            {
+              "host": "localhost",
+              "port": 40404
+            }
+          ],
+          "providers": [{
+            "host": "localhost",
+            "protocol": "http",
+            "port": 9556
+          }],
+          "threads": 0
         }
       }
     }
