@@ -40,6 +40,9 @@ services:
     env_file: .env
     environment:
       - DWS_DB_HOST=dws-db
+      - DWS_DB_PORT=27001
+      - DUC_NODE_URL=node
+      - DUCX_NODE_URL=node
     working_dir: /ducatuscore/packages/ducatuscore-wallet-service
     entrypoint: ["npm", "run", "start"]
 

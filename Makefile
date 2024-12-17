@@ -19,7 +19,7 @@ logs:
 	$(compose) logs -f --tail=$(lines)
 
 logs-node:
-	docker-compose logs -f --tail=$(lines) node
+	docker compose logs -f --tail=$(lines) node
 
 logs-dws:
-	docker-compose logs -f --tail=$(lines) dws
+	docker compose logs -f --tail=$(lines) dws
