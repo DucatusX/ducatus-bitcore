@@ -22,10 +22,10 @@ EthRoutes.post('/api/ETH/:network/gas', async (req, res) => {
     const gasLimit = await ETH.estimateGas({ network, from, to, value, data, gasPrice });
     res.json(gasLimit);
   } catch (err) {
-    //@ts-ignore
+    // @ts-ignore
     if (err?.code != null) {
       // Preventable error from geth (probably due to insufficient funds or similar)
-      //@ts-ignore
+      // @ts-ignore
       res.status(400).send(err.message);
     } else {
       logger.error('Gas Error::%o', err);

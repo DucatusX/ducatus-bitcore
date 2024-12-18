@@ -54,7 +54,7 @@
 
 - If an error occurred with node-gyp, install the dependencies: https://www.npmjs.com/package/node-gyp and restart pc
 
-- > E11000 duplicate key error collection:
+- > Mongo: E11000 duplicate key error collection:
 
   ```js
   use dws

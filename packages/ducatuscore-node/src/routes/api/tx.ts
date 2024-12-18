@@ -154,7 +154,7 @@ router.post('/send', async function(req: Request, res: Response) {
     res.send({ txid });
   } catch (err) {
     logger.error('%o', err);
-    //@ts-ignore
+    // @ts-ignore
     res.status(500).send(err.message);
   }
 });

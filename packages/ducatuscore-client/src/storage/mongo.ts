@@ -36,7 +36,7 @@ export class Mongo {
   async init(params) {
     const { wallet, addresses } = params;
     try {
-      //@ts-ignore
+      // @ts-ignore
       this.client = new MongoClient(this.path, { useNewUrlParser: true, useUnifiedTopology: true });
       await this.client.connect();
       this.db = this.client.db(this.databaseName);
@@ -57,7 +57,7 @@ export class Mongo {
     try {
       this.client = new MongoClient(this.path, {
         useNewUrlParser: true,
-        //@ts-ignore
+        // @ts-ignore
         useUnifiedTopology: true,
         noDelay: true,
         serverSelectionTimeoutMS: 5000

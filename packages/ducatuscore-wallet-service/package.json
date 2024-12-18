@@ -7,7 +7,6 @@
   "types": "./ts_build/index.d.ts",
   "scripts": {
     "start": "node ./ts_build/app.js",
-    "dev": "npm run compile && node --inspect ./ts_build/app.js",
     "stop": "./stop.sh",
     "coverage": "npm run compile && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --reporter spec test",
     "test": "npm run compile && mocha --exit",
