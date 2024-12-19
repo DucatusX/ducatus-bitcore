@@ -37,6 +37,8 @@ services:
     image: ducatuscore-dws
     networks:
       - ducatuscore-network
+    ports:
+      - 3233:3233
     env_file: .env
     environment:
       - DWS_DB_HOST=dws-db
