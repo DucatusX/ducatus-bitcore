@@ -1,0 +1,14 @@
+diff --git a/node_modules/number-to-bn/node_modules/bn.js/lib/bn.js b/node_modules/number-to-bn/node_modules/bn.js/lib/bn.js
+index 29a4c51..9964e7e 100644
+--- a/node_modules/number-to-bn/node_modules/bn.js/lib/bn.js
++++ b/node_modules/number-to-bn/node_modules/bn.js/lib/bn.js
+@@ -503,7 +503,8 @@
+       // NOTE: at this stage it is known that the top bit is set
+       ret += 0x10000000000000 + (this.words[1] * 0x4000000);
+     } else if (this.length > 2) {
+-      assert(false, 'Number can only safely store up to 53 bits');
++      // assert(false, 'Number can only safely store up to 53 bits');
++      ret = Number.MAX_SAFE_INTEGER;
+     }
+     return (this.negative !== 0) ? -ret : ret;
+   };
