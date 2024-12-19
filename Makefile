@@ -12,11 +12,8 @@ stop:
 	$(compose) down
 
 restart:
-	$(compose) stop
-	$(compose) up -d
-
-logs:
-	$(compose) logs -f --tail=$(lines)
+	$(compose) down
+	$(compose) up --build -d
 
 logs-node:
 	sudo docker compose logs -f --tail=$(lines) node

@@ -8,6 +8,9 @@ import { ERC20TxProvider } from './erc20';
 import { ETHTxProvider } from './eth';
 import { ETHMULTISIGTxProvider } from './eth-multisig';
 import { XRPTxProvider } from './xrp';
+import { BNBTxProvider } from './bnb';
+import { BNBERC20TxProvider } from './bnb-erc20';
+import { BNBMULTISIGTxProvider } from './bnb-multisig';
 
 const providers = {
   BTC: new BTCTxProvider(),
@@ -19,7 +22,10 @@ const providers = {
   DUCX: new DUCXTxProvider(),
   DUCXERC20: new DUCXERC20TxProvider(),
   DUCXERC721: new DUCXERC721TxProvider(),
-  XRP: new XRPTxProvider()
+  XRP: new XRPTxProvider(),
+  BNB: new BNBTxProvider(),
+  BNBMULTISIG: new BNBMULTISIGTxProvider(),
+  BNBERC20: new BNBERC20TxProvider()
 };
 
 export class TransactionsProxy {

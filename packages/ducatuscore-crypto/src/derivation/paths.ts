@@ -28,6 +28,11 @@ export const Paths = {
     testnet: "m/44'/144'/",
     regtest: "m/44'/144'/"
   },
+  BNB: {
+    mainnet: "m/44'/60'/", // the official bnb derivation path is 966 519 users will expect address to be same as ETH
+    livenet: "m/44'/60'/",
+    testnet: "m/44'/60'/"
+  },
   default: {
     testnet: "m/44'/1'/"
   }
