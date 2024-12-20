@@ -591,7 +591,7 @@ export class V8 {
     });
 
     walletsSocket.on('failure', err => {
-      logger.error(`Error joining room ${err.message} ${this.chainNetwork}`);
+      logger.error(`Error joining room ${err.message} ${this.host} ${this.chainNetwork}`);
     });
 
     walletsSocket.on('coin', data => {

@@ -29,7 +29,7 @@ services:
     environment:
       - DB_HOST=node-db
     working_dir: /ducatuscore/packages/ducatuscore-node
-    entrypoint: ["npm", "run", "start"]
+    entrypoint: ["yarn", "start"]
 
   dws:
     build: .
@@ -46,7 +46,7 @@ services:
       - DUC_NODE_URL=node:3000
       - DUCX_NODE_URL=node:3000
     working_dir: /ducatuscore/packages/ducatuscore-wallet-service
-    entrypoint: ["npm", "run", "start"]
+    entrypoint: ["yarn", "start"]
 
 networks:
   ducatuscore-network:
