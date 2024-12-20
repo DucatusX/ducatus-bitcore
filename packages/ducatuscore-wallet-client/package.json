@@ -56,5 +56,6 @@
     "tslint": "^5.14.0",
     "typescript-eslint-parser": "^22.0.0",
     "uuid": "^2.0.1"
-  }
+  },
+  "gitHead": "083d4d487945ad6fc13ffcdd7341faa87b5a34d6"
 }
