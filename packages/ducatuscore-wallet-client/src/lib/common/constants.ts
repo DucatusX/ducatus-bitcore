@@ -55,7 +55,8 @@ export const Constants = {
     'QMN',
     'mpe',
     'balisol',
-    'x-gen'
+    'x-gen',
+    'bnb'
   ],
 
   DUCATUSCORE_SUPPORTED_ETH_ERC20: [
@@ -69,7 +70,8 @@ export const Constants = {
     'ape',
     'euroc',
     'usdt',
-    'matic'
+    'matic',
+    'bnb'
   ],
   DUCATUSCORE_SUPPORTED_DUCX_ERC20: [
     'jamasy',
@@ -89,14 +91,16 @@ export const Constants = {
     'x-gen'
   ],
 
-  CHAINS: ['btc', 'bch', 'eth', 'duc', 'ducx', 'xrp'],
+  CHAINS: ['btc', 'bch', 'eth', 'duc', 'ducx', 'xrp', 'bnb'],
   UTXO_CHAINS: ['btc', 'bch', 'duc'],
-  EVM_CHAINS: ['eth', 'ducx'],
+  EVM_CHAINS: ['eth', 'ducx', 'bnb'],
   ETH_TOKEN_OPTS: CWC.Constants.ETH_TOKEN_OPTS,
   DUCX_TOKEN_OPTS: CWC.Constants.DUCX_TOKEN_OPTS,
+  BNB_TOKEN_OPTS: CWC.Constants.BNB_TOKEN_OPTS,
   UNITS: CWC.Constants.UNITS,
   EVM_CHAINSUFFIXMAP: {
     eth: 'e',
-    ducx: 'd'
+    ducx: 'd',
+    bnb: 'b'
   }
 };

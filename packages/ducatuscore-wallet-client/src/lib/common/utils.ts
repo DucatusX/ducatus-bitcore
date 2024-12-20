@@ -23,7 +23,8 @@ const Ducatuscore_ = {
   eth: Ducatuscore,
   duc: DucatuscoreLibDuc,
   ducx: Ducatuscore,
-  xrp: Ducatuscore
+  xrp: Ducatuscore,
+  bnb: Ducatuscore,
 };
 const PrivateKey = Ducatuscore.PrivateKey;
 const PublicKey = Ducatuscore.PublicKey;

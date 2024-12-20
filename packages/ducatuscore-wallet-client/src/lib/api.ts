@@ -23,6 +23,7 @@ var Ducatuscore_ = {
   duc: CWC.DucatuscoreLibDuc,
   ducx: CWC.DucatuscoreLib,
   xrp: CWC.DucatuscoreLib,
+  bnb: CWC.DucatuscoreLib
 };
 var Mnemonic = require('@ducatus/ducatuscore-mnemonic');
 var url = require('url');
@@ -704,6 +705,7 @@ export class API extends EventEmitter {
     switch (chain.toLowerCase()) {
       case 'xrp':
       case 'eth':
+      case 'bnb':
       case 'ducx':
         const unsignedTxs = t.uncheckedSerialize();
         const signedTxs = [];
@@ -2708,6 +2710,7 @@ export class API extends EventEmitter {
         ['duc', 'livenet'],
         ['duc', 'testnet'],
         ['xrp', 'livenet'],
+        ['bnb', 'livenet'],
         ['btc', 'livenet', true],
         ['bch', 'livenet', true]
       ];
@@ -2936,6 +2939,8 @@ export class API extends EventEmitter {
                 wallet.status.preferences.ducxTokenAddresses;
               const multisigDucxInfo =
                 wallet.status.preferences.multisigDucxInfo;
+              const bnbTokenAddresses = wallet.status.preferences.bnbTokenAddresses;
+              const multisigBnbInfo = wallet.status.preferences.multisigBnbInfo;
 
               // Eth wallet with tokens?
               if (!_.isEmpty(tokenAddresses) || !_.isEmpty(multisigEthInfo)) {
@@ -3084,6 +3089,70 @@ export class API extends EventEmitter {
                             'ducx'
                           );
                         let tokenClient = _.cloneDeep(multisigDucxClient);
+                        tokenClient.credentials = tokenCredentials;
+                        clients.push(tokenClient);
+                      });
+                    }
+                  });
+                }
+              }
+              // bnb wallet with tokens?
+              if (!_.isEmpty(bnbTokenAddresses) || !_.isEmpty(multisigBnbInfo)) {
+                if (!_.isEmpty(bnbTokenAddresses)) {
+                  function oneInchGetBnbTokensData() {
+                    return new Promise((resolve, reject) => {
+                      newClient.request.get('/v1/service/oneInch/getTokens/bnb', (err, data) => {
+                        if (err) return reject(err);
+                        return resolve(data);
+                      });
+                    });
+                  }
+                  let customTokensData;
+                  try {
+                    customTokensData = await oneInchGetBnbTokensData();
+                  } catch (error) {
+                    log.warn('oneInchGetBnbTokensData err', error);
+                    customTokensData = null;
+                  }
+                  _.each(bnbTokenAddresses, (t) => {
+                    const token = Constants.BNB_TOKEN_OPTS[t] || (customTokensData && customTokensData[t]);
+                    if (!token) {
+                      log.warn(`Token ${t} unknown`);
+                      return;
+                    }
+                    log.info(`Importing token: ${token.name}`);
+                    const tokenCredentials = newClient.credentials.getTokenCredentials(token, 'bnb');
+                    let tokenClient = _.cloneDeep(newClient);
+                    tokenClient.credentials = tokenCredentials;
+                    clients.push(tokenClient);
+                  });
+                }
+                // bnb wallet with multisig wallets?
+                if (!_.isEmpty(multisigBnbInfo)) {
+                  _.each(multisigBnbInfo, (info) => {
+                    log.info(
+                      `Importing multisig wallet. Address: ${info.multisigContractAddress} - m: ${info.m} - n: ${info.n}`
+                    );
+                    const multisigBnbCredentials = newClient.credentials.getMultisigEthCredentials({
+                      walletName: info.walletName,
+                      multisigContractAddress: info.multisigContractAddress,
+                      n: info.n,
+                      m: info.m,
+                    });
+                    let multisigBnbClient = _.cloneDeep(newClient);
+                    multisigBnbClient.credentials = multisigBnbCredentials;
+                    clients.push(multisigBnbClient);
+                    const bnbTokenAddresses = info.bnbTokenAddresses;
+                    if (!_.isEmpty(bnbTokenAddresses)) {
+                      _.each(bnbTokenAddresses, (t) => {
+                        const token = Constants.BNB_TOKEN_OPTS[t];
+                        if (!token) {
+                          log.warn(`Token ${t} unknown`);
+                          return;
+                        }
+                        log.info(`Importing multisig token: ${token.name}`);
+                        const tokenCredentials = multisigBnbClient.credentials.getTokenCredentials(token, 'bnb');
+                        let tokenClient = _.cloneDeep(multisigBnbClient);
                         tokenClient.credentials = tokenCredentials;
                         clients.push(tokenClient);
                       });
