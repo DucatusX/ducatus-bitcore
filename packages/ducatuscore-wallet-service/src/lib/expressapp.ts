@@ -155,15 +155,47 @@ export class ExpressApp {
     };
 
     const getServerWithAuth = (req, res, opts, cb?: (err: any, data?: any) => void) => {
-      try {
-        if (_.isFunction(opts)) {
-          cb = opts;
-          opts = {};
+      if (_.isFunction(opts)) {
+        cb = opts;
+        opts = {};
+      }
+      opts = opts || {};
+
+      const credentials = getCredentials(req);
+      if (!credentials)
+        return returnError(
+          new ClientError({
+            code: 'NOT_AUTHORIZED'
+          }),
+          res,
+          req
+        );
+
+      const auth = {
+        copayerId: credentials.copayerId,
+        message: req.method.toLowerCase() + '|' + req.url + '|' + JSON.stringify(req.body),
+        signature: credentials.signature,
+        clientVersion: req.header('x-client-version'),
+        userAgent: req.header('user-agent'),
+        walletId: req.header('x-wallet-id'),
+        session: undefined
+      };
+      if (opts.allowSession) {
+        auth.session = credentials.session;
+      }
+
+      WalletService.getInstanceWithAuth(auth, (err, server) => {
+        if (err) {
+          console.log('error 1');
+
+          if (opts.silentFailure) {
+            return cb(null, err);
+          } else {
+            return returnError(err, res, req);
+          }
         }
-        opts = opts || {};
-        
-        const credentials = getCredentials(req);
-        if (!credentials)
+
+        if (opts.onlySupportStaff && !server.copayerIsSupportStaff) {
           return returnError(
             new ClientError({
               code: 'NOT_AUTHORIZED'
@@ -171,63 +203,28 @@ export class ExpressApp {
             res,
             req
           );
-
-        const auth = {
-          copayerId: credentials.copayerId,
-          message: req.method.toLowerCase() + '|' + req.url + '|' + JSON.stringify(req.body),
-          signature: credentials.signature,
-          clientVersion: req.header('x-client-version'),
-          userAgent: req.header('user-agent'),
-          walletId: req.header('x-wallet-id'),
-          session: undefined
-        };
-        if (opts.allowSession) {
-          auth.session = credentials.session;
         }
 
-        WalletService.getInstanceWithAuth(auth, (err, server) => {
-          if (err) {
-            if (opts.silentFailure) {
-              return cb(null, err);
-            } else {
-              return returnError(err, res, req);
-            }
-          }
-  
-          if (opts.onlySupportStaff && !server.copayerIsSupportStaff) {
-            return returnError(
-              new ClientError({
-                code: 'NOT_AUTHORIZED'
-              }),
-              res,
-              req
-            );
-          }
-  
-          if (server.copayerIsSupportStaff) {
-            req.isSupportStaff = true;
-          }
-  
-          if (opts.onlyMarketingStaff && !server.copayerIsMarketingStaff) {
-            return returnError(
-              new ClientError({
-                code: 'NOT_AUTHORIZED'
-              }),
-              res,
-              req
-            );
-          }
-  
-          // For logging
-          req.walletId = server.walletId;
-          req.copayerId = server.copayerId;
-  
-          return cb(server);
-        });
-      } catch (ex) {
-        logger.error(JSON.stringify(ex, null, 2))
-        return returnError(ex, res, req);
-      }
+        if (server.copayerIsSupportStaff) {
+          req.isSupportStaff = true;
+        }
+
+        if (opts.onlyMarketingStaff && !server.copayerIsMarketingStaff) {
+          return returnError(
+            new ClientError({
+              code: 'NOT_AUTHORIZED'
+            }),
+            res,
+            req
+          );
+        }
+
+        // For logging
+        req.walletId = server.walletId;
+        req.copayerId = server.copayerId;
+
+        return cb(server);
+      });
     };
 
     /**
@@ -389,6 +386,7 @@ export class ExpressApp {
         if (req.query.twoStep == '1') opts.twoStep = true;
         if (req.query.serverMessageArray == '1') opts.includeServerMessages = true;
         server.getStatus(opts, (err, status) => {
+          console.log('error 2');
           if (err) return returnError(err, res, req);
           res.json(status);
         });
