@@ -155,35 +155,36 @@ export class ExpressApp {
     };
 
     const getServerWithAuth = (req, res, opts, cb?: (err: any, data?: any) => void) => {
-      if (_.isFunction(opts)) {
-        cb = opts;
-        opts = {};
-      }
-      opts = opts || {};
-
-      const credentials = getCredentials(req);
-      if (!credentials)
-        return returnError(
-          new ClientError({
-            code: 'NOT_AUTHORIZED'
-          }),
-          res,
-          req
-        );
-
-      const auth = {
-        copayerId: credentials.copayerId,
-        message: req.method.toLowerCase() + '|' + req.url + '|' + JSON.stringify(req.body),
-        signature: credentials.signature,
-        clientVersion: req.header('x-client-version'),
-        userAgent: req.header('user-agent'),
-        walletId: req.header('x-wallet-id'),
-        session: undefined
-      };
-      if (opts.allowSession) {
-        auth.session = credentials.session;
-      }
       try {
+        if (_.isFunction(opts)) {
+          cb = opts;
+          opts = {};
+        }
+        opts = opts || {};
+        
+        const credentials = getCredentials(req);
+        if (!credentials)
+          return returnError(
+            new ClientError({
+              code: 'NOT_AUTHORIZED'
+            }),
+            res,
+            req
+          );
+
+        const auth = {
+          copayerId: credentials.copayerId,
+          message: req.method.toLowerCase() + '|' + req.url + '|' + JSON.stringify(req.body),
+          signature: credentials.signature,
+          clientVersion: req.header('x-client-version'),
+          userAgent: req.header('user-agent'),
+          walletId: req.header('x-wallet-id'),
+          session: undefined
+        };
+        if (opts.allowSession) {
+          auth.session = credentials.session;
+        }
+
         WalletService.getInstanceWithAuth(auth, (err, server) => {
           if (err) {
             if (opts.silentFailure) {
@@ -224,6 +225,7 @@ export class ExpressApp {
           return cb(server);
         });
       } catch (ex) {
+        logger.error(JSON.stringify(ex, null, 2))
         return returnError(ex, res, req);
       }
     };
