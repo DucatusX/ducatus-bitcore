@@ -317,7 +317,6 @@ export class WalletService implements IWalletService {
 
       server.storage.fetchCopayerLookup(opts.copayerId, (err, copayer) => {
         if (err) {
-          console.log('error 3');
           return cb(err);
         }
         if (!copayer) {
@@ -359,7 +358,6 @@ export class WalletService implements IWalletService {
 
       server.storage.getSession(opts.copayerId, (err, s) => {
         if (err) {
-          console.log('error 4');
           return cb(err);
         }
 
@@ -370,7 +368,6 @@ export class WalletService implements IWalletService {
 
         server.storage.fetchCopayerLookup(opts.copayerId, (err, copayer) => {
           if (err) {
-            console.log('error 5');
             return cb(err);
           }
           if (!copayer) {

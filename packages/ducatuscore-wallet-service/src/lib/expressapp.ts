@@ -186,7 +186,6 @@ export class ExpressApp {
 
       WalletService.getInstanceWithAuth(auth, (err, server) => {
         if (err) {
-          console.log('error 1');
 
           if (opts.silentFailure) {
             return cb(null, err);
@@ -386,7 +385,6 @@ export class ExpressApp {
         if (req.query.twoStep == '1') opts.twoStep = true;
         if (req.query.serverMessageArray == '1') opts.includeServerMessages = true;
         server.getStatus(opts, (err, status) => {
-          console.log('error 2');
           if (err) return returnError(err, res, req);
           res.json(status);
         });
