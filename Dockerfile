@@ -6,6 +6,7 @@ WORKDIR /ducatuscore
 
 COPY package*.json ./
 COPY yarn.lock ./
+COPY patches ./
 COPY packages/crypto-rpc/package*.json packages/crypto-rpc/
 COPY packages/ducatuscore-build/package*.json packages/ducatuscore-build/
 COPY packages/ducatuscore-client/package*.json packages/ducatuscore-client/
@@ -25,4 +26,4 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn patch-package && yarn compile
+RUN yarn compile
