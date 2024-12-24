@@ -183,45 +183,49 @@ export class ExpressApp {
       if (opts.allowSession) {
         auth.session = credentials.session;
       }
-      WalletService.getInstanceWithAuth(auth, (err, server) => {
-        if (err) {
-          if (opts.silentFailure) {
-            return cb(null, err);
-          } else {
-            return returnError(err, res, req);
+      try {
+        WalletService.getInstanceWithAuth(auth, (err, server) => {
+          if (err) {
+            if (opts.silentFailure) {
+              return cb(null, err);
+            } else {
+              return returnError(err, res, req);
+            }
           }
-        }
-
-        if (opts.onlySupportStaff && !server.copayerIsSupportStaff) {
-          return returnError(
-            new ClientError({
-              code: 'NOT_AUTHORIZED'
-            }),
-            res,
-            req
-          );
-        }
-
-        if (server.copayerIsSupportStaff) {
-          req.isSupportStaff = true;
-        }
-
-        if (opts.onlyMarketingStaff && !server.copayerIsMarketingStaff) {
-          return returnError(
-            new ClientError({
-              code: 'NOT_AUTHORIZED'
-            }),
-            res,
-            req
-          );
-        }
-
-        // For logging
-        req.walletId = server.walletId;
-        req.copayerId = server.copayerId;
-
-        return cb(server);
-      });
+  
+          if (opts.onlySupportStaff && !server.copayerIsSupportStaff) {
+            return returnError(
+              new ClientError({
+                code: 'NOT_AUTHORIZED'
+              }),
+              res,
+              req
+            );
+          }
+  
+          if (server.copayerIsSupportStaff) {
+            req.isSupportStaff = true;
+          }
+  
+          if (opts.onlyMarketingStaff && !server.copayerIsMarketingStaff) {
+            return returnError(
+              new ClientError({
+                code: 'NOT_AUTHORIZED'
+              }),
+              res,
+              req
+            );
+          }
+  
+          // For logging
+          req.walletId = server.walletId;
+          req.copayerId = server.copayerId;
+  
+          return cb(server);
+        });
+      } catch (ex) {
+        return returnError(ex, res, req);
+      }
     };
 
     /**
