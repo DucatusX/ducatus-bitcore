@@ -25,4 +25,4 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn compile
+RUN yarn patch-package && yarn compile
