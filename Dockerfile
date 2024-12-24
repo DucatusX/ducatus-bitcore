@@ -8,7 +8,7 @@ COPY package*.json ./
 COPY yarn.lock ./
 COPY packages/crypto-rpc/package*.json packages/crypto-rpc/
 COPY packages/ducatuscore-build/package*.json packages/ducatuscore-build/
-COPY packages/ducatuscore-client/package*.json packages/ducatuscore-rpc/
+COPY packages/ducatuscore-client/package*.json packages/ducatuscore-client/
 COPY packages/ducatuscore-crypto/package*.json packages/ducatuscore-crypto/
 COPY packages/ducatuscore-lib/package*.json packages/ducatuscore-lib/
 COPY packages/ducatuscore-lib-cash/package*.json packages/ducatuscore-lib-cash/
