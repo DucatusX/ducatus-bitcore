@@ -4,6 +4,12 @@ RUN set -x
 
 WORKDIR /ducatuscore
 
+COPY package*.json ./
+COPY yarn.lock ./
+COPY packages/*/package*.json packages/
+
+RUN yarn install 
+
 COPY . .
 
-RUN yarn install && yarn compile
+RUN yarn compile
