@@ -732,6 +732,7 @@ export class WalletService implements IWalletService {
       [
         next => {
           this.getWallet({}, (err, wallet) => {
+            if (err) console.log('error 1');
             if (err) return next(err);
 
             const walletExtendedKeys = ['publicKeyRing', 'pubKey', 'addressManager'];
@@ -765,9 +766,11 @@ export class WalletService implements IWalletService {
             // failed)
             if (opts.includeExtendedInfo) {
               if (err && err.code != 'WALLET_NEED_SCAN') {
+                if (err) console.log('error 2');
                 return next(err);
               }
             } else if (err) {
+              if (err) console.log('error 3');
               return next(err);
             }
 
@@ -777,6 +780,7 @@ export class WalletService implements IWalletService {
         },
         next => {
           this.getPendingTxs(opts, (err, pendingTxps) => {
+            if (err) console.log('error 4');
             if (err) return next(err);
             status.pendingTxps = pendingTxps;
             next();
@@ -784,6 +788,7 @@ export class WalletService implements IWalletService {
         },
         next => {
           this.getPreferences({}, (err, preferences) => {
+            if (err) console.log('error 5');
             if (err) return next(err);
             status.preferences = preferences;
             next();
