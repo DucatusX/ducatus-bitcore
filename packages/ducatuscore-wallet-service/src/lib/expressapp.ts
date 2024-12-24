@@ -385,7 +385,6 @@ export class ExpressApp {
         if (req.query.twoStep == '1') opts.twoStep = true;
         if (req.query.serverMessageArray == '1') opts.includeServerMessages = true;
         server.getStatus(opts, (err, status) => {
-          if (err) console.log(new Error().stack)
           if (err) return returnError(err, res, req);
           res.json(status);
         });
