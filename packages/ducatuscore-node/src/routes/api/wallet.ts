@@ -21,9 +21,11 @@ router.post('/', async function(req: Request, res: Response) {
     });
     if (existingWallet) {
       res.status(200).send('Wallet already exists');
+      return
     }
     if (isTooLong(name) || isTooLong(pubKey) || isTooLong(path) || isTooLong(singleAddress)) {
       res.status(413).send('String length exceeds limit');
+      return
     }
     let result = await ChainStateProvider.createWallet({
       chain,
