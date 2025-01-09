@@ -2,6 +2,8 @@ import _ from 'lodash';
 import { logger } from './lib/logger';
 
 const {
+  NODE_PROTOCOL,
+  NODE_WS_PROTOCOL,
   DUCX_NODE_URL,
   DUC_NODE_URL,
   EXCHANGER_LIVENET_URL,
@@ -14,10 +16,10 @@ const {
   DWS_PORT,
   MSG_PORT
 } = process.env;
-const ducxNode = DUCX_NODE_URL ? `http://${DUCX_NODE_URL}` : 'http://localhost:3000';
-const ducNode = DUCX_NODE_URL ? `http://${DUC_NODE_URL}` : 'http://localhost:3000';
-const ducxNodeWs = DUC_NODE_URL ? `ws://${DUCX_NODE_URL}` : 'ws://localhost:3000';
-const ducNodeWs = DUC_NODE_URL ? `ws://${DUC_NODE_URL}` : 'ws://localhost:3000';
+const ducxNode = DUCX_NODE_URL ? `${NODE_PROTOCOL || 'http'}://${DUCX_NODE_URL}` : 'http://localhost:3000';
+const ducNode = DUCX_NODE_URL ? `${NODE_PROTOCOL || 'http'}://${DUC_NODE_URL}` : 'http://localhost:3000';
+const ducxNodeWs = DUC_NODE_URL ? `${NODE_WS_PROTOCOL || 'ws'}://${DUCX_NODE_URL}` : 'ws://localhost:3000';
+const ducNodeWs = DUC_NODE_URL ? `${NODE_WS_PROTOCOL || 'ws'}://${DUC_NODE_URL}` : 'ws://localhost:3000';
 
 const Config = () => {
   let defaultConfig = {
