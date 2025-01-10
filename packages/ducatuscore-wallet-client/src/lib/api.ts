@@ -44,7 +44,7 @@ export class API extends EventEmitter {
   timeout: any;
   logLevel: any;
   supportStaffWalletId: any;
-  request: any;
+  request: Request;
   bulkClient: any;
   credentials: any;
   notificationIncludeOwn: boolean;
@@ -1490,6 +1490,56 @@ export class API extends EventEmitter {
     });
   }
 
+  private getAddressActivity(chain, network, address: string, cb: (err, res?: boolean) => void) {
+    const request = new Request(Constants.BTC_URL, {})
+    const url = `/api/${chain}/${network === 'livenet' ? 'mainnet' : 'testnet'}/address/${address}/txs?limit=1`;
+    request
+      .get(url, (err, res) => {
+        if (err) return cb(err);
+        return cb(null, Boolean(Array.isArray(res) && res.length));
+      })
+  }
+
+  private canCreateAddress(addresses, cb) {
+      let activityFound = false;
+      let i = addresses.length;
+
+      async.whilst(
+        () => {
+          return i > 0 && !activityFound;
+        },
+        next => {
+          this.getAddressActivity(addresses[0].chain.toUpperCase(), addresses[0].network, addresses[--i].address, (err, res) => {
+            if (err) return next(err);
+            activityFound = !!res;
+            return next();
+          });
+        },
+        err => {
+          if (err) return cb(err);
+          if (!activityFound) return cb(null, false);
+
+          const address = addresses[i];
+          address.hasActivity = true;
+          return cb(null, true);
+        }
+      );
+  }
+
+  private postAddresses(ignoreMaxGap = false, cb: (err, address?) => void) {
+    const opts = {ignoreMaxGap: false}
+    opts.ignoreMaxGap = ignoreMaxGap  
+    this.request.post('/v4/addresses/', opts, (err, address) => {
+      if (err) return cb(err);
+        
+      if (!Verifier.checkAddress(this.credentials, address)) {
+        return cb(new Errors.SERVER_COMPROMISED());
+      }
+        
+      return cb(null, address);
+    });
+  }
+
   // /**
   // * Create a new address
   // *
@@ -1515,16 +1565,29 @@ export class API extends EventEmitter {
       return cb(new Error('Cannot create new address for this wallet'));
 
     opts = opts || {};
+    
+    const chain = this.request.credentials.chain.toUpperCase()
 
-    this.request.post('/v4/addresses/', opts, (err, address) => {
-      if (err) return cb(err);
+    if (chain !== 'BCH' && chain !== 'BTC') {
+      this.postAddresses(false, cb)
+    } else {
+      this.getMainAddresses({}, (err, addresses) => {
+        if (err) return cb(err);
 
-      if (!Verifier.checkAddress(this.credentials, address)) {
-        return cb(new Errors.SERVER_COMPROMISED());
-      }
-
-      return cb(null, address);
-    });
+        const latestAddresses = addresses.filter(x => !x.isChange).slice(-Constants.MAX_MAIN_ADDRESS_GAP);
+        if (latestAddresses.length < Constants.MAX_MAIN_ADDRESS_GAP || _.some(latestAddresses, {hasActivity: true})) {
+          return this.postAddresses(true, cb)
+        };
+        
+        this.canCreateAddress(latestAddresses, (err, canCreate) => {
+          if (err) return cb(err);
+  
+          if (!canCreate) return cb({name: 'MAIN_ADDRESS_GAP_REACHED'})
+            
+          this.postAddresses(true, cb)
+        })
+      })
+    }
   }
 
   // /**

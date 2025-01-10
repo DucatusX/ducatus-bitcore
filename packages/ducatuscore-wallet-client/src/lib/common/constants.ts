@@ -102,5 +102,7 @@ export const Constants = {
     eth: 'e',
     ducx: 'd',
     bnb: 'b'
-  }
+  },
+  BTC_URL: 'https://api.bitcore.io',
+  MAX_MAIN_ADDRESS_GAP: 20,
 };
