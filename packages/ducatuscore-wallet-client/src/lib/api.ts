@@ -1500,7 +1500,7 @@ export class API extends EventEmitter {
       })
   }
 
-  private canCreateAddress(addresses, cb) {
+  private canCreateAddress(addresses, cb: (err, addressWithActivity?: {} | null) => void) {
       let activityFound = false;
       let i = addresses.length;
 
@@ -1521,14 +1521,13 @@ export class API extends EventEmitter {
 
           const address = addresses[i];
           address.hasActivity = true;
-          return cb(null, true);
+          return cb(null, address);
         }
       );
   }
 
-  private postAddresses(ignoreMaxGap = false, cb: (err, address?) => void) {
-    const opts = {ignoreMaxGap: false}
-    opts.ignoreMaxGap = ignoreMaxGap  
+  private postAddresses(ignoreMaxGap = false, addressWithActivity: {} | null, cb: (err, address?) => void) {
+    const opts = {ignoreMaxGap, addressWithActivity}
     this.request.post('/v4/addresses/', opts, (err, address) => {
       if (err) return cb(err);
         
@@ -1569,22 +1568,21 @@ export class API extends EventEmitter {
     const chain = this.request.credentials.chain.toUpperCase()
 
     if (chain !== 'BCH' && chain !== 'BTC') {
-      this.postAddresses(false, cb)
+      this.postAddresses(false, null, cb)
     } else {
       this.getMainAddresses({}, (err, addresses) => {
         if (err) return cb(err);
 
         const latestAddresses = addresses.filter(x => !x.isChange).slice(-Constants.MAX_MAIN_ADDRESS_GAP);
         if (latestAddresses.length < Constants.MAX_MAIN_ADDRESS_GAP || _.some(latestAddresses, {hasActivity: true})) {
-          return this.postAddresses(true, cb)
+          return this.postAddresses(true, null, cb)
         };
         
-        this.canCreateAddress(latestAddresses, (err, canCreate) => {
+        this.canCreateAddress(latestAddresses, (err, addressWithActivity) => {
           if (err) return cb(err);
-  
-          if (!canCreate) return cb({name: 'MAIN_ADDRESS_GAP_REACHED'})
+          if (!addressWithActivity) return cb({name: 'MAIN_ADDRESS_GAP_REACHED'})
             
-          this.postAddresses(true, cb)
+          this.postAddresses(true, addressWithActivity, cb)
         })
       })
     }

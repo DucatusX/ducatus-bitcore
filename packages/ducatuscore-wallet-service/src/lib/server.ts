@@ -1353,12 +1353,17 @@ export class WalletService implements IWalletService {
   /**
    * Creates a new address.
    * @param {Object} opts
+   * @param {Boolean} [opts.addressWithActivity] - Address with activity for replace in store
    * @param {Boolean} [opts.ignoreMaxGap=false] - Ignore constraint of maximum number of consecutive addresses without activity
    * @param {Boolean} opts.noCashAddr (do not use cashaddr, only for backwards compat)
    * @returns {Address} address
    */
   createAddress(opts, cb) {
     opts = opts || {};
+
+    if (opts.addressWithActivity) this.storage.storeAddress(opts.addressWithActivity, err => {
+      if (err) return cb(err);
+    });
 
     const createNewAddress = (wallet, cb) => {
       let address;
@@ -3440,7 +3445,7 @@ export class WalletService implements IWalletService {
           }
 
           this.storage.setWalletAddressChecked(wallet.id, totalAddresses, err => {
-            return cb(null, isOK);
+            return cb(null, isOK); // TODOO
           });
         });
       });
