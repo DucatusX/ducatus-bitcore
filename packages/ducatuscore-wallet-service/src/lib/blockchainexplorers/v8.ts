@@ -17,7 +17,7 @@ const Ducatuscore_ = {
   xrp: Ducatuscore,
   ducx: Ducatuscore,
   bnb: Ducatuscore,
-  duc: require('@ducatus/ducatuscore-lib-duc'),
+  duc: require('@ducatus/ducatuscore-lib-duc')
 };
 const config = require('../../config');
 const Constants = Common.Constants,
@@ -43,7 +43,7 @@ export class V8 {
   host: string;
   userAgent: string;
   baseUrl: string;
-  request: request;
+  request: typeof request;
   Client: typeof Client;
 
   constructor(opts) {
@@ -591,7 +591,7 @@ export class V8 {
     });
 
     walletsSocket.on('failure', err => {
-      logger.error(`Error joining room ${err.message} ${this.chainNetwork}`);
+      logger.error(`Error joining room ${err.message} ${this.host} ${this.chainNetwork}`);
     });
 
     walletsSocket.on('coin', data => {

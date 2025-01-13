@@ -1,0 +1,55 @@
+services:
+  node-db:
+    image: mongo:5.0
+    restart: always
+    volumes: 
+      - /data/node_db:/data/db
+    networks:
+      - ducatuscore-network 
+
+  dws-db:
+    image: mongo:5.0
+    restart: always
+    volumes: 
+      - /data/dws_db:/data/db
+    networks:
+      - ducatuscore-network
+    command: mongod --port 27001
+    ports:
+      - 27001:27001
+    
+  node:
+    build: .
+    restart: always
+    image: ducatuscore-node
+    networks:
+      - ducatuscore-network
+    ports:
+      - 8100:8100
+      - 3001:3000
+    env_file: .env
+    environment:
+      - DB_HOST=node-db
+    working_dir: /ducatuscore/packages/ducatuscore-node
+    entrypoint: ["yarn", "start"]
+
+  dws:
+    build: .
+    restart: always
+    image: ducatuscore-dws
+    networks:
+      - ducatuscore-network
+    ports:
+      - 3233:3233
+    env_file: .env
+    environment:
+      - DWS_DB_HOST=dws-db
+      - DWS_DB_PORT=27001
+      - DUC_NODE_URL=node:3000
+      - DUCX_NODE_URL=node:3000
+    working_dir: /ducatuscore/packages/ducatuscore-wallet-service
+    entrypoint: ["yarn", "start"]
+
+networks:
+  ducatuscore-network:
+    driver: bridge

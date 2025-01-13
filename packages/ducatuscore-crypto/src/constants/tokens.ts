@@ -159,3 +159,30 @@ export let DUCX_TOKEN_OPTS = {
     address: '0x89db0C0B7A5099CD784FE6d48499EFed70a66fF7'
   },
 };
+
+export let BNB_TOKEN_OPTS = {
+  '0x0d265949881d2120a9a1a1a0528941f4761a6aad': {
+    name: 'TYZ Token',
+    symbol: 'TYZ',
+    decimals: 18,
+    address: '0x0d265949881d2120a9a1a1a0528941f4761a6aad'
+  },
+  '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56': {
+    name: 'BUSD',
+    symbol: 'BUSD',
+    decimals: 18,
+    address: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56'
+  },
+  '0x55d398326f99059ff775485246999027b3197955': {
+    name: 'USDT',
+    symbol: 'USDT',
+    decimals: 18,
+    address: '0x55d398326f99059ff775485246999027b3197955'
+  },
+  '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d': {
+    name: 'USDC',
+    symbol: 'USDC',
+    decimals: 18,
+    address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d'
+  }
+};

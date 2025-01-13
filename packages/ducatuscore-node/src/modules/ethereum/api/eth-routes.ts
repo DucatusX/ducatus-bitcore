@@ -21,8 +21,11 @@ EthRoutes.post('/api/ETH/:network/gas', async (req, res) => {
   try {
     const gasLimit = await ETH.estimateGas({ network, from, to, value, data, gasPrice });
     res.json(gasLimit);
-  } catch (err: any) {
-    if (err?.code != null) { // Preventable error from geth (probably due to insufficient funds or similar)
+  } catch (err) {
+    // @ts-ignore
+    if (err?.code != null) {
+      // Preventable error from geth (probably due to insufficient funds or similar)
+      // @ts-ignore
       res.status(400).send(err.message);
     } else {
       logger.error('Gas Error::%o', err);
@@ -101,6 +104,6 @@ EthRoutes.get('/api/ETH/:network/ethmultisig/transactions/:multisigContractAddre
     });
   } catch (err) {
     logger.error('Multisig Transactions Error::%o', err);
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });

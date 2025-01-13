@@ -1,6 +1,82 @@
 # Ducatuscore monorepo
 
-**Infrastructure to build Bitcoin and blockchain-based applications for the next generation of financial technology.**
+### Infrastructure to build Bitcoin and blockchain-based applications for the next generation of financial technology.
+
+## Dependencies
+
+- node js: v22.12.0
+- yarn: v1.22.22
+- mongo: v5.0
+
+## Required configurations
+
+- .env
+- ducatuscore.config.json
+
+## Installation
+
+- ```
+  yarn install
+  ```
+- ```
+  yarn compile
+  ```
+
+## Development
+
+- ```
+  yarn dev:node
+  ```
+- ```
+  yarn dev:dws
+  ```
+
+## Usage on the server
+
+- ```
+  make start
+  ```
+- ```
+  make stop
+  ```
+- ```
+  make logs-node
+  ```
+- ```
+  make logs-dws
+  ```
+
+## Troubleshooting
+
+- ```
+  yarn fix
+  ```
+
+- If an error occurred with node-gyp, install the dependencies: https://www.npmjs.com/package/node-gyp and restart pc
+
+- > Mongo: E11000 duplicate key error collection:
+
+  ```js
+  use dws
+
+  db.addresses.aggregate([
+  {
+    $group: {
+      _id: { address: "$address", coin: "$coin" },
+      count: { $sum: 1 },
+      duplicates: { $addToSet: "$_id" }
+    }
+  },
+  {
+    $match: {
+      count: { $gt: 1 }
+    }
+  }
+  ]).forEach(function(doc) {
+  doc.duplicates.shift(); // Keep one document, remove others
+  db.addresses.remove({ _id: { $in: doc.duplicates } });
+  });
+  ```
 
 ## Applications
 

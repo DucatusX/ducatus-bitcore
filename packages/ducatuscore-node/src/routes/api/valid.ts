@@ -2,7 +2,7 @@ import express = require('express');
 const router = express.Router({ mergeParams: true });
 import { ChainStateProvider } from '../../providers/chain-state';
 
-router.get('/:input', async function(req, res) {
+router.get('/:input', async function(req: express.Request, res) {
   let { input, chain, network } = req.params;
   try {
     let isValid = await ChainStateProvider.isValid({
@@ -10,9 +10,9 @@ router.get('/:input', async function(req, res) {
       network,
       input
     });
-    return res.send(isValid);
+    res.send(isValid);
   } catch (err) {
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 

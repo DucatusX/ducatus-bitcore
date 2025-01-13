@@ -2,12 +2,12 @@ import { Common } from '../common';
 import { ITxProposal, IWallet, TxProposal } from '../model';
 import { WalletService } from '../server';
 import { BchChain } from './bch';
+import { BnbChain } from './bnb';
 import { BtcChain } from './btc';
 import { DucChain } from './duc';
 import { DucxChain } from './ducx';
 import { EthChain } from './eth';
 import { XrpChain } from './xrp';
-import { BnbChain } from './bnb';
 
 const Constants = Common.Constants;
 const Defaults = Common.Defaults;

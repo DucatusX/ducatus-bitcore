@@ -5,6 +5,8 @@ export const transport = new winston.transports.Console({
   level: process.env.DWS_LOG_LEVEL || 'debug'
 });
 
+const prod = process.env.MODE === 'prod'
+
 export const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.colorize(),
@@ -18,7 +20,8 @@ export const logger = winston.createLogger({
         info.message = JSON.stringify(info.message, null, 4);
       }
       return `${info.level} :: ${new Date().toISOString()} :: ${info.message}`;
-    })
+    }),
+    winston.format.errors({stack: !prod})
   ),
   transports: [transport]
 });

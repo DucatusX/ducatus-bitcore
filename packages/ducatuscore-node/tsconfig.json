@@ -20,7 +20,8 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["mocha"],
     "esModuleInterop": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "noEmitOnError": false
   },
   "include": ["./src/**/*", "./test/**/*"]
 }

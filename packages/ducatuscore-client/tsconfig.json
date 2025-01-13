@@ -19,11 +19,6 @@
     "outDir": "ts_build",
     "sourceMap": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./tests/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["./src/**/*.ts", "./tests/**/*.ts"],
+  "exclude": ["node_modules"]
 }

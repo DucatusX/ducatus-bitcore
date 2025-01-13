@@ -1,7 +1,8 @@
 {
   "name": "@ducatus/ducatuscore-client",
   "description": "Wallet client for Ducatuscore node",
-  "version": "10.0.23",
+  "version": "10.1.2",
+  "license": "ISC",
   "main": "./ts_build/index.js",
   "types": "./ts_build/index.d.ts",
   "engines": {
@@ -9,18 +10,17 @@
   },
   "scripts": {
     "build": "npm run compile",
-    "clean": "rm -rf ./ts_build",
     "pub": "npm run compile && npm publish --access public",
     "watch": "tsc --watch",
-    "compile": "npm run clean && tsc",
+    "compile": "tsc",
     "test": "mocha ./test/unit",
     "precommit": "npm run fix && npm run lint",
     "lint": "tslint -c ../../tslint.json 'src/**/*.ts'",
     "fix": "tslint --fix -c ../../tslint.json 'src/**/*.ts'"
   },
   "dependencies": {
-    "@ducatus/ducatuscore-crypto": "^10.0.23",
-    "@ducatus/ducatuscore-mnemonic": "^10.0.23",
+    "@ducatus/ducatuscore-crypto": "^10.1.2",
+    "@ducatus/ducatuscore-mnemonic": "^10.1.2",
     "JSONStream": "~1.3.1",
     "async": "2.5.0",
     "bcrypt": "5.1.0",
@@ -46,7 +46,7 @@
     "@types/ethereumjs-util": "5.2.0",
     "@types/mongodb": "4.0.7",
     "@types/node": "18.11.18",
-    "@types/request": "2.48.1",
+    "@types/request": "2.48.12",
     "@types/request-promise-native": "1.0.15",
     "@types/secp256k1": "3.5.0",
     "eslint-config-airbnb-base": "12.1.0",
@@ -55,5 +55,5 @@
     "sinon": "4.4.8",
     "typescript": "4.9.4"
   },
-  "gitHead": "52d3f01fb9855b874fed2a085c027044af0d545c"
+  "gitHead": "b0e492469e46a45161e412fcc32a021e65a89140"
 }

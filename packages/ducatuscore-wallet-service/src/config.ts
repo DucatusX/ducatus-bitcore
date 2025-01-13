@@ -1,23 +1,25 @@
 import _ from 'lodash';
 import { logger } from './lib/logger';
 
-const { 
-  DUCX_NODE_URL, 
+const {
+  NODE_PROTOCOL,
+  NODE_WS_PROTOCOL,
+  DUCX_NODE_URL,
   DUC_NODE_URL,
-  EXCHANGER_LIVENET_URL, 
+  EXCHANGER_LIVENET_URL,
   EXCHANGER_TESTNET_URL,
   DWS_DB_HOST,
-  DWS_DB_PORT, 
+  DWS_DB_PORT,
   MSG_HOST,
   FCM_KEY,
   SOCKET_API_KEY,
   DWS_PORT,
   MSG_PORT
 } = process.env;
-const ducxNode = `http://${DUCX_NODE_URL}` || 'http://localhost:3000';
-const ducNode = `http://${DUC_NODE_URL}` || 'http://localhost:3000';
-const ducxNodeWs = `ws://${DUCX_NODE_URL}` || 'ws://localhost:3000';
-const ducNodeWs = `ws://${DUC_NODE_URL}` || 'ws://localhost:3000';
+const ducxNode = DUCX_NODE_URL ? `${NODE_PROTOCOL || 'http'}://${DUCX_NODE_URL}` : 'http://localhost:3000';
+const ducNode = DUCX_NODE_URL ? `${NODE_PROTOCOL || 'http'}://${DUC_NODE_URL}` : 'http://localhost:3000';
+const ducxNodeWs = DUC_NODE_URL ? `${NODE_WS_PROTOCOL || 'ws'}://${DUCX_NODE_URL}` : 'ws://localhost:3000';
+const ducNodeWs = DUC_NODE_URL ? `${NODE_WS_PROTOCOL || 'ws'}://${DUC_NODE_URL}` : 'ws://localhost:3000';
 
 const Config = () => {
   let defaultConfig = {
@@ -61,32 +63,32 @@ const Config = () => {
       btc: {
         livenet: {
           url: 'https://api.bitcore.io',
-          wsUrl:'https://api.bitcore.io'
+          wsUrl: 'https://api.bitcore.io'
         },
         testnet: {
           url: 'https://api.bitcore.io',
-          wsUrl:'https://api.bitcore.io',
+          wsUrl: 'https://api.bitcore.io',
           regtestEnabled: false
         }
       },
       bch: {
         livenet: {
           url: 'https://api.bitcore.io',
-          wsUrl:'https://api.bitcore.io'
+          wsUrl: 'https://api.bitcore.io'
         },
         testnet: {
           url: 'https://api.bitcore.io',
-          wsUrl:'https://api.bitcore.io'
+          wsUrl: 'https://api.bitcore.io'
         }
       },
       eth: {
         livenet: {
           url: 'https://api-eth.bitcore.io',
-          wsUrl:'https://api-eth.bitcore.io'
+          wsUrl: 'https://api-eth.bitcore.io'
         },
         testnet: {
           url: 'https://api-eth.bitcore.io',
-          wsUrl:'https://api-eth.bitcore.io'
+          wsUrl: 'https://api-eth.bitcore.io'
         }
       },
       duc: {
@@ -113,11 +115,11 @@ const Config = () => {
       xrp: {
         livenet: {
           url: 'https://api-xrp.bitcore.io',
-          wsUrl:'https://api-xrp.bitcore.io'
+          wsUrl: 'https://api-xrp.bitcore.io'
         },
         testnet: {
           url: 'https://api-xrp.bitcore.io',
-          wsUrl:'https://api-xrp.bitcore.io'
+          wsUrl: 'https://api-xrp.bitcore.io'
         }
       },
       bnb: {
@@ -130,14 +132,14 @@ const Config = () => {
           wsUrl: ducxNodeWs
         }
       },
-      socketApiKey: SOCKET_API_KEY,
+      socketApiKey: SOCKET_API_KEY
     },
     pushNotificationsOpts: {
       defaultLanguage: 'en',
       defaultUnit: 'btc',
       subjectPrefix: '',
       pushServerUrl: 'https://fcm.googleapis.com/fcm',
-      authorizationKey: FCM_KEY,
+      authorizationKey: FCM_KEY
     },
     fiatRateServiceOpts: {
       defaultProvider: 'BitPay',

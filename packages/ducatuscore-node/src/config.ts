@@ -62,7 +62,7 @@ const Config = function(): ConfigType {
     dbPass: process.env.DB_PASS || '',
     numWorkers: cpus().length,
     chains: {},
-    modules: ['./bitcoin', './bitcoin-cash', './ethereum', './ducatus', './ducx', './bnb'],
+    modules: ['./bitcoin', './bitcoin-cash', './ethereum', './ducatus', './ducx'],
     services: {
       api: {
         rateLimiter: {
@@ -79,7 +79,7 @@ const Config = function(): ConfigType {
       },
       p2p: {},
       socket: {
-        dwsKeys: process.env.DWS_KEYS ? process.env.DWS_KEYS.split(',') : [],
+        dwsKeys: process.env.DWS_KEYS ? process.env.DWS_KEYS.split(',') : []
       },
       storage: {}
     }

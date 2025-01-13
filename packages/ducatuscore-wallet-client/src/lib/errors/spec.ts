@@ -72,6 +72,10 @@ var errorSpec = [
     message: 'Your linked ETH wallet does not have enough ETH for fee.'
   },
   {
+    name: 'INSUFFICIENT_BNB_FEE',
+    message: 'Your linked Binance wallet does not have enough BNB for fee.'
+  },
+  {
     name: 'INSUFFICIENT_DUCX_FEE',
     message: 'Your linked DucatusX wallet does not have enough DUCX for fee.'
   },
@@ -88,6 +92,11 @@ var errorSpec = [
     name: 'LOCKED_DUCX_FEE',
     message:
       'Your DucatusX linked wallet funds are locked by pending spend proposals.'
+  },
+  {
+    name: 'LOCKED_BNB_FEE',
+    message:
+      'Your Binance linked wallet funds are locked by pending spend proposals.'
   },
   {
     name: 'DUST_AMOUNT',

@@ -1,17 +1,21 @@
 {
   "version": "10.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0",
+    "yarn": ">=1.22.22"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
   "prettier": {
     "singleQuote": true,
     "printWidth": 120
   },
   "scripts": {
-    "build": "docker build -t ducatuscore-node . ",
-    "dev:dws": "docker compose -f \"docker-compose.dws.dev.yml\" up -d --build",
-    "dev:node": "docker compose -f \"docker-compose.node.dev.yml\" up -d --build",
-    "watch": "lerna run watch --parallel",
-    "bootstrap": "lerna bootstrap",
-    "node": "cd packages/ducatuscore-node && npm start",
-    "dws": "cd packages/ducatuscore-wallet-service && npm start",
+    "dev:node": "cd packages/ducatuscore-node && env-cmd -f ../../.env tsc-watch --onSuccess 'node --inspect build/src/server.js'",
+    "dev:dws": "cd packages/ducatuscore-wallet-service && env-cmd -f ../../.env tsc-watch --onSuccess 'node --inspect=localhost:9222 ts_build/app.js'",
+    "postinstall": "patch-package",
     "compile": "lerna run compile",
     "lint": "lerna run lint",
     "fix": "lerna run fix",
@@ -34,22 +38,25 @@
       "path": "node_modules/cz-customizable"
     }
   },
+  "dependencies": {
+    "lerna": "^8.1.9",
+    "node-gyp": "^11.0.0",
+    "typescript": "4.9.4"
+  },
   "devDependencies": {
     "cz-customizable": "^5.2.0",
+    "env-cmd": "^10.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "husky": "^2.4.0",
     "lint-staged": "^9.5.0",
-    "nodemon": "^3.1.7",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^1.19.1",
+    "tsc-watch": "^6.2.1",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.15.0",
     "typescript-eslint-parser": "^15.0.0"
-  },
-  "dependencies": {
-    "lerna": "^3.22.1",
-    "typescript": "4.9.4"
-  },
-  "packageManager": "yarn@1.22.19"
+  }
 }

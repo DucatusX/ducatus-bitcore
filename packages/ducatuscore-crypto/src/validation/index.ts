@@ -4,6 +4,7 @@ import { DucValidation } from './duc';
 import { DucxValidation } from './ducx';
 import { EthValidation } from './eth';
 import { XrpValidation } from './xrp';
+import { BnbValidation } from './bnb';
 
 export interface IValidation {
   validateAddress(network: string, address: string): boolean;
@@ -16,7 +17,8 @@ const validation: { [chain: string]: IValidation } = {
   ETH: new EthValidation(),
   XRP: new XrpValidation(),
   DUC: new DucValidation(),
-  DUCX: new DucxValidation()
+  DUCX: new DucxValidation(),
+  BNB: new BnbValidation()
 };
 
 export class ValidationProxy {

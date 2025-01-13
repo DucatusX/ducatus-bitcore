@@ -255,7 +255,7 @@ export class EmailService {
       eth: 'ETH',
       duc: 'DUCX',
       ducx: 'DUCX',
-      bnb: "BNB",
+      bnb: 'BNB',
       xrp: 'XRP',
       usdc: 'USDC',
       matic: 'MATIC',

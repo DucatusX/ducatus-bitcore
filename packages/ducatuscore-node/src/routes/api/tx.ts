@@ -40,7 +40,8 @@ router.get('/', function(req: Request, res: Response) {
 router.get('/:txId', async (req: Request, res: Response) => {
   let { chain, network, txId } = req.params;
   if (typeof txId !== 'string' || !chain || !network) {
-    return res.status(400).send('Missing required param');
+    res.status(400).send('Missing required param');
+    return;
   }
   txId = txId
     .replace(/&/g, '&amp;')
@@ -52,16 +53,16 @@ router.get('/:txId', async (req: Request, res: Response) => {
   try {
     const tx = await ChainStateProvider.getTransaction({ chain, network, txId });
     if (!tx) {
-      return res.status(404).send(`The requested txid ${txId} could not be found.`);
+      res.status(404).send(`The requested txid ${txId} could not be found.`);
     } else {
       const tip = await ChainStateProvider.getLocalTip({ chain, network });
       if (tx && tip && tx.blockHeight > 0 && tip.height - tx.blockHeight > 100) {
         SetCache(res, CacheTimes.Month);
       }
-      return res.send(tx);
+      res.send(tx);
     }
   } catch (err) {
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
@@ -70,7 +71,8 @@ router.get('/:txId/populated', async (req: Request, res: Response) => {
   let { chain, network, txId } = req.params;
   let txid = txId;
   if (typeof txid !== 'string' || !chain || !network) {
-    return res.status(400).send('Missing required param');
+    res.status(400).send('Missing required param');
+    return;
   }
 
   try {
@@ -85,7 +87,7 @@ router.get('/:txId/populated', async (req: Request, res: Response) => {
     ]);
 
     if (!tx) {
-      return res.status(404).send(`The requested txid ${txid} could not be found.`);
+      res.status(404).send(`The requested txid ${txid} could not be found.`);
     } else {
       if (tx && tip && tx.blockHeight > 0 && tip.height - tx.blockHeight > 100) {
         SetCache(res, CacheTimes.Month);
@@ -95,29 +97,30 @@ router.get('/:txId/populated', async (req: Request, res: Response) => {
         res.status(404).send(`The requested coins for txid ${txid} could not be found.`);
       }
       tx.coins = coins;
-      return res.send(tx);
+      res.send(tx);
     }
   } catch (err) {
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
 router.get('/:txId/authhead', async (req: Request, res: Response) => {
   let { chain, network, txId } = req.params;
   if (typeof txId !== 'string' || !chain || !network) {
-    return res.status(400).send('Missing required param');
+    res.status(400).send('Missing required param');
+    return;
   }
   chain = chain.toUpperCase();
   network = network.toLowerCase();
   try {
     const authhead = await ChainStateProvider.getAuthhead({ chain, network, txId });
     if (!authhead) {
-      return res.status(404).send(`Authhead for txid ${txId} could not be found.`);
+      res.status(404).send(`Authhead for txid ${txId} could not be found.`);
     } else {
-      return res.send(authhead);
+      res.send(authhead);
     }
   } catch (err) {
-    return res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
@@ -148,10 +151,11 @@ router.post('/send', async function(req: Request, res: Response) {
       network,
       rawTx
     });
-    return res.send({ txid });
-  } catch (err: any) {
+    res.send({ txid });
+  } catch (err) {
     logger.error('%o', err);
-    return res.status(500).send(err.message);
+    // @ts-ignore
+    res.status(500).send(err.message);
   }
 });
 

@@ -1,44 +1,22 @@
 lines?=1000
 
-# Change "docker compose" to "docker-compose" if using older version of docker
-compose_dws=sudo docker compose -f docker-compose.dws.yml
-compose_node=sudo docker compose -f docker-compose.node.yml
+compose=sudo docker compose -f docker-compose.yml
 
-build-dws:
-	$(compose_dws) up --build -d
+start:
+	$(compose) up --build -d
 
-stop-dws:
-	$(compose_dws) stop
+pause:
+	$(compose) stop
 
-restart-dws:
-	$(compose_dws) stop
-	$(compose_dws) up -d
+stop:
+	$(compose) down
 
-logs-dws:
-	$(compose_dws) logs -f --tail=$(lines)
-
-down-dws:
-	$(compose_dws) down
-
-destroy-dws:
-	$(compose_dws) down -v
-
-
-build-node:
-	$(compose_node) up --build -d
-
-stop-node:
-	$(compose_node) stop
-
-restart-node:
-	$(compose_node) stop
-	$(compose_node) up -d
+restart:
+	$(compose) down
+	$(compose) up --build -d
 
 logs-node:
-	$(compose_node) logs -f --tail=$(lines)
+	sudo docker compose logs -f --tail=$(lines) node
 
-down-node:
-	$(compose_node) down
-
-destroy-node:
-	$(compose_node) down -v
+logs-dws:
+	sudo docker compose logs -f --tail=$(lines) dws
