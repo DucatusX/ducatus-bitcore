@@ -16,7 +16,7 @@ restart:
 	$(compose) up --build -d
 
 logs-node:
-	sudo docker compose logs -f --tail=$(lines) node
+	$(compose) logs -f --tail=$(lines) node
 
 logs-dws:
-	sudo docker compose logs -f --tail=$(lines) dws
+	$(compose) logs -f --tail=$(lines) dws
