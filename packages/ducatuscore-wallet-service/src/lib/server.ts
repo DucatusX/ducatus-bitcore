@@ -1457,9 +1457,7 @@ export class WalletService implements IWalletService {
     opts = opts || {};
     this.storage.fetchAddresses(this.walletId, (err, addresses) => {
       if (err) return cb(err);
-      let onlyMain = _.reject(addresses, {
-        isChange: true
-      });
+      let onlyMain = addresses.filter(x => !x.isChange);
       if (opts.reverse) onlyMain.reverse();
       if (opts.limit > 0) onlyMain = _.take(onlyMain, opts.limit);
 
