@@ -1580,8 +1580,10 @@ export class API extends EventEmitter {
         
         this.canCreateAddress(latestAddresses, (err, addressWithActivity) => {
           if (err) return cb(err);
-          if (!addressWithActivity) return cb({name: 'MAIN_ADDRESS_GAP_REACHED'})
-            
+          if (!addressWithActivity) {
+            console.log(chain, 'MAIN_ADDRESS_GAP_REACHED')
+            return cb({ name: 'MAIN_ADDRESS_GAP_REACHED', type: 'MAIN_ADDRESS_GAP_REACHED'});
+          }
           this.postAddresses(true, addressWithActivity, cb)
         })
       })

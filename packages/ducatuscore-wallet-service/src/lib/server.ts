@@ -3443,7 +3443,7 @@ export class WalletService implements IWalletService {
           }
 
           this.storage.setWalletAddressChecked(wallet.id, totalAddresses, err => {
-            return cb(null, isOK); // TODOO
+            return cb(null, isOK);
           });
         });
       });
