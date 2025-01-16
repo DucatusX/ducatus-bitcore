@@ -20,8 +20,8 @@ const {
 } = process.env;
 const ducxNode = DUCX_NODE_URL ? `${DUCX_NODE_PROTOCOL || 'http'}://${DUCX_NODE_URL}` : 'http://localhost:3000';
 const ducNode = DUCX_NODE_URL ? `${DUC_NODE_PROTOCOL || 'http'}://${DUC_NODE_URL}` : 'http://localhost:3000';
-const ducxNodeWs = DUC_NODE_URL ? `${DUCX_WS_NODE_PROTOCOL || 'http'}://${DUCX_NODE_URL}` : 'ws://localhost:3000';
-const ducNodeWs = DUC_NODE_URL ? `${DUC_WS_NODE_PROTOCOL || 'http'}://${DUC_NODE_URL}` : 'ws://localhost:3000';
+const ducxNodeWs = DUC_NODE_URL ? `${DUCX_WS_NODE_PROTOCOL || 'ws'}://${DUCX_NODE_URL}` : 'ws://localhost:3000';
+const ducNodeWs = DUC_NODE_URL ? `${DUC_WS_NODE_PROTOCOL || 'ws'}://${DUC_NODE_URL}` : 'ws://localhost:3000';
 
 const Config = () => {
   let defaultConfig = {
