@@ -45,8 +45,8 @@ services:
     environment:
       - DWS_DB_HOST=dws-db
       - DWS_DB_PORT=27001
-      - DUC_NODE_URL=node:3000
-      - DUCX_NODE_URL=node:3000
+      - DUC_NODE_URL=${DUC_NODE_URL:-node:3000}
+      - DUCX_NODE_URL=${DUCX_NODE_URL:-node:3000}
     working_dir: /ducatuscore/packages/ducatuscore-wallet-service
     entrypoint: ["yarn", "start"]
 
