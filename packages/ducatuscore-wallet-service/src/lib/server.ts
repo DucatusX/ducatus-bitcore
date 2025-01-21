@@ -1194,6 +1194,21 @@ export class WalletService implements IWalletService {
         isValid(value) {
           return _.isArray(value) && value.every(x => Validation.validateAddress('ducx', 'mainnet', x));
         }
+      },
+      {
+        name: 'bnbTokenAddresses',
+        isValid(value) {
+          return _.isArray(value) && value.every(x => Validation.validateAddress('bnb', 'mainnet', x));
+        }
+      },
+      {
+        name: 'multisigBnbInfo',
+        isValid(value) {
+          return (
+            _.isArray(value) &&
+            value.every(x => Validation.validateAddress('bnb', 'mainnet', x.multisigContractAddress))
+          );
+        }
       }
     ];
 
@@ -1221,6 +1236,11 @@ export class WalletService implements IWalletService {
       if (wallet.coin != 'ducx') {
         opts.ducxMokenAddresses = null;
         opts.multisigDucxInfo = null;
+      }
+
+      if (wallet.coin != 'bnb') {
+        opts.bnbTokenAddresses = null;
+        opts.multisigBnbInfo = null;
       }
 
       this._runLocked(cb, cb => {
@@ -1267,6 +1287,35 @@ export class WalletService implements IWalletService {
             oldPref = oldPref || {};
             oldPref.ducxTokenAddresses = oldPref.ducxTokenAddresses || [];
             preferences.ducxTokenAddresses = _.uniq(oldPref.ducxTokenAddresses.concat(opts.ducxTokenAddresses));
+          }
+
+          // merge bnb tokenAddresses
+          if (opts.bnbTokenAddresses) {
+            oldPref = oldPref || {};
+            oldPref.bnbTokenAddresses = oldPref.bnbTokenAddresses || [];
+            preferences.bnbTokenAddresses = _.uniq(oldPref.bnbTokenAddresses.concat(opts.bnbTokenAddresses));
+          }
+
+          // merge bnb multisigBnbInfo
+          if (opts.multisigBnbInfo) {
+            oldPref = oldPref || {};
+            oldPref.multisigBnbInfo = oldPref.multisigBnbInfo || [];
+
+            preferences.multisigBnbInfo = _.uniq(
+              oldPref.multisigBnbInfo.concat(opts.multisigBnbInfo).reduce((x, y) => {
+                let exists = false;
+                x.forEach(e => {
+                  // add new token addresses linked to the multisig wallet
+                  if (e.multisigContractAddress === y.multisigContractAddress) {
+                    e.bnbTokenAddresses = e.bnbTokenAddresses || [];
+                    y.bnbTokenAddresses = _.uniq(e.bnbTokenAddresses.concat(y.bnbTokenAddresses));
+                    e = Object.assign(e, y);
+                    exists = true;
+                  }
+                });
+                return exists ? x : [...x, y];
+              }, [])
+            );
           }
 
           this.storage.storePreferences(preferences, err => {

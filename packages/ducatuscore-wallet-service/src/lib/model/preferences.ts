@@ -23,6 +23,8 @@ export class Preferences {
   multisigEthInfo: object[];
   ducxTokenAddresses: string[];
   multisigDucxInfo: object[];
+  bnbTokenAddresses: string[];
+  multisigBnbInfo: object[];
 
   static create(opts) {
     opts = opts || {};
@@ -40,6 +42,8 @@ export class Preferences {
     x.multisigEthInfo = opts.multisigEthInfo;
     x.ducxTokenAddresses = opts.ducxTokenAddresses;
     x.multisigDucxInfo = opts.multisigDucxInfo;
+    x.bnbTokenAddresses = opts.bnbTokenAddresses;
+    x.multisigBnbInfo = opts.multisigBnbInfo;
     // you can't put useDust here since this is copayer's specific.
     return x;
   }
@@ -58,6 +62,8 @@ export class Preferences {
     x.multisigEthInfo = obj.multisigEthInfo;
     x.ducxTokenAddresses = obj.ducxTokenAddresses;
     x.multisigDucxInfo = obj.multisigDucxInfo;
+    x.bnbTokenAddresses = obj.bnbTokenAddresses;
+    x.multisigBnbInfo = obj.multisigBnbInfo;
     return x;
   }
 }
