@@ -69,12 +69,12 @@ export class FiatRateService {
           (coin, next2) => {
             this._retrieve(provider, coin, (err, res) => {
               if (err) {
-                logger.warn('Error retrieving data for %o: %o', provider.name + coin, err);
+                logger.error('Error retrieving data for %o: %o', provider.name + '/' + coin, err);
                 return next2();
               }
               this.storage.storeFiatRate(coin, res, err => {
                 if (err) {
-                  logger.warn('Error storing data for %o: %o', provider.name, err);
+                  logger.error('Error storing data for %o: %o', provider.name, err);
                 }
                 return next2();
               });
@@ -126,7 +126,10 @@ export class FiatRateService {
         url,
         json: true
       },
-      (err, res, body) => handleCoinsRates(err, body)
+      (err, res, body) => {
+        if (res.statusCode >= 400) return cb(`StatusCode: ${res.statusCode}, Response: ${JSON.stringify(body)}`)
+        handleCoinsRates(err, body)
+      }
     );
   }
 
