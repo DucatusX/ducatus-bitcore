@@ -2,7 +2,7 @@
 
 import * as CWC from '@ducatus/ducatuscore-crypto';
 import { EventEmitter } from 'events';
-import _ from 'lodash';
+import _, { debounce } from 'lodash';
 import sjcl from 'sjcl';
 import { BulkClient } from './bulkclient';
 import { Constants, Utils } from './common';
@@ -1490,7 +1490,7 @@ export class API extends EventEmitter {
     });
   }
 
-  private getAddressActivity(chain, network, address: string, cb: (err, res?: boolean) => void) {
+  private getAddressActivity = debounce((chain, network, address: string, cb: (err, res?: boolean) => void) => {
     const request = new Request(Constants.BTC_URL, {})
     const url = `/api/${chain}/${network === 'livenet' ? 'mainnet' : 'testnet'}/address/${address}/txs?limit=1`;
     request
@@ -1498,7 +1498,7 @@ export class API extends EventEmitter {
         if (err) return cb(err);
         return cb(null, Boolean(Array.isArray(res) && res.length));
       })
-  }
+  }, 300, {leading: true})
 
   private canCreateAddress(addresses, cb: (err, addressWithActivity?: {} | null) => void) {
       let activityFound = false;
