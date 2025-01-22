@@ -1,18 +1,23 @@
-import _ from 'lodash';
+import { Rate } from '.';
+import { Defaults } from '../common/defaults';
 
-module.exports = {
+export default {
   name: 'BitPay',
   url: 'https://bitpay.com/api/rates/',
-  parseFn(raw, coin) {
-    const rates = _.compact(
-      _.map(raw, d => {
-        if (!d.code || !d.rate) return null;
-        return {
-          code: d.code,
-          value: +d.rate
-        };
-      })
-    );
+  parseFn(res, coin) {
+    const rates: Rate[] = [];
+
+    const COIN_RATE = res.find(rate => rate.code === coin)?.rate
+
+    for (const fiat of Defaults.FIAT_CURRENCIES) {
+      const FIAT_RATE = res.find(rate => rate.code === fiat.code)?.rate
+      if (!FIAT_RATE || !COIN_RATE) continue
+      rates.push({
+        code: fiat.code,
+        value: Number(FIAT_RATE/COIN_RATE)
+      });
+    }
+
     return rates;
   }
 };

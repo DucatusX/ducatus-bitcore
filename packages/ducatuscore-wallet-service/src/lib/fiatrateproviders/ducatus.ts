@@ -1,21 +1,15 @@
-import _ from 'lodash';
+import { Rate } from ".";
 
-module.exports = {
+export default {
   name: 'Ducatus',
   url: 'https://rates.ducatuscoins.com/api/v1/rates/',
-  parseFn(raw, coin) {
-    coin = coin.toUpperCase();
-    
-    if (!raw[coin]) {
-      return undefined;
-    }
-        
-    const rates: any[] = []
+  parseFn(res, coin) {
+    const rates: Rate[] = []
 
-    for (let key in raw[coin]) {
+    for (const code in res[coin]) {
       rates.push({
-        code: key,
-        value: Number(raw[coin][key])
+        code,
+        value: Number(res[coin][code])
       });
     }
 

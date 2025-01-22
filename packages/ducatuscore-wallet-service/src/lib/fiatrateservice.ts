@@ -4,6 +4,7 @@ import * as request from 'request';
 import { Common } from './common';
 import logger from './logger';
 import { Storage } from './storage';
+import Providers from './fiatrateproviders';
 
 const $ = require('preconditions').singleton();
 const Defaults = Common.Defaults;
@@ -12,8 +13,8 @@ const Constants = Common.Constants;
 export class FiatRateService {
   request: request.RequestAPI<any, any, any>;
   defaultProvider: any;
-  providers: any[];
   storage: Storage;
+  providers = Object.values(Providers);
 
   init(opts, cb) {
     opts = opts || {};
@@ -45,7 +46,6 @@ export class FiatRateService {
   startCron(opts, cb) {
     opts = opts || {};
 
-    this.providers = _.values(require('./fiatrateproviders'));
     const interval = opts.fetchInterval || Defaults.FIAT_RATE_FETCH_INTERVAL;
     if (interval) {
       this._fetch();
@@ -61,74 +61,48 @@ export class FiatRateService {
     cb = cb || function() {};
     const coins = Object.values(Constants.DUCATUSCORE_SUPPORTED_COINS);
 
-    async.each(
-      this.providers, 
-      (provider, next) => {
-        async.each(
-          coins,
-          (coin, next2) => {
-            this._retrieve(provider, coin, (err, res) => {
-              if (err) {
-                logger.error('Error retrieving data for %o: %o', provider.name + '/' + coin, err);
-                return next2();
-              }
-              this.storage.storeFiatRate(coin, res, err => {
-                if (err) {
-                  logger.error('Error storing data for %o: %o', provider.name, err);
-                }
-                return next2();
-              });
-            });
-          },
-          next
-        )
-      },
-      cb
-    );
+    this.providers.forEach(provider => {
+      if (!provider.parseFn) return cb(new Error('No parse function for provider ' + provider.name));
+
+      this._retrieve(provider, (err, res) => {
+        if (err) {
+          logger.error('Error retrieving data for %o: %o', provider.name, err);
+          return;
+        }
+
+        const storeRates = (coin, rates) => {
+          this.storage.storeFiatRate(coin, rates, err => {
+            if (err) {
+              logger.error('Error storing data for %o: %o', provider.name, err);
+            }
+          });
+        };
+
+        coins.forEach(coin => {
+          const rates = provider.parseFn(res, coin.toUpperCase());
+          storeRates(coin, rates);
+        });
+      });
+    });
   }
 
-  _retrieve(provider, coin, cb) {
-    logger.debug(`Fetching data for ${provider.name} / ${coin}`);
-    
-    const isDucatusProvider = provider.name === 'Ducatus';
-    const url = isDucatusProvider 
-      ? provider.url 
-      : provider.url + coin.toUpperCase();
-
-    const handleCoinsRates = (err, res) => {
-      if (err || !res) {
-        return cb(err);
-      }
-
-      logger.debug(`Data for ${provider.name} / ${coin} fetched successfully`);
-
-      if (!provider.parseFn) {
-        return cb(new Error('No parse function for provider ' + provider.name));
-      }
-      try {
-        const rates = _.filter(provider.parseFn(res, coin), x => _.some(Defaults.FIAT_CURRENCIES, ['code', x.code]));
-        return cb(null, rates);
-      } catch (e) {
-        return cb(e);
-      }
-    };
+  _retrieve(provider, cb) {
+    logger.debug(`Fetching data for ${provider.name}`);
 
     const ts = Date.now();
-    if (Constants.DUCATUSCORE_USD_STABLECOINS[coin.toUpperCase()]) {
-      return this.getRatesForStablecoin({ code: 'USD', ts }, handleCoinsRates);
-    }
 
-    if (Constants.DUCATUSCORE_EUR_STABLECOINS[coin.toUpperCase()]) {
-      return this.getRatesForStablecoin({ code: 'EUR', ts }, handleCoinsRates);
-    }
     this.request.get(
       {
-        url,
+        url: provider.url,
         json: true
       },
       (err, res, body) => {
-        if (res.statusCode >= 400) return cb(`StatusCode: ${res.statusCode}, Response: ${JSON.stringify(body)}`)
-        handleCoinsRates(err, body)
+        if (err) cb(err);
+        if (res.statusCode >= 400) return cb(`StatusCode: ${res.statusCode}, Response: ${JSON.stringify(body)}`);
+
+        logger.debug(`Data for ${provider.name} fetched successfully`);
+
+        return cb(null, body);
       }
     );
   }

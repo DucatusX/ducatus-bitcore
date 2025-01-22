@@ -1,7 +1,16 @@
-var Providers = {
-  BitPay: require('./bitpay'),
-  Ducatus: require('./ducatus')
-  //  Bitstamp: require('./bitstamp'), // no longer used
+import bitpay from './bitpay';
+import ducatus from './ducatus';
+// import bitstamp from './bitstamp';
+
+export interface Rate {
+  code: string
+  value: number
+}
+
+const Providers = {
+  BitPay: bitpay,
+  Ducatus: ducatus
+  // Bitstamp: bitstamp, // no longer used
 };
 
-module.exports = Providers;
+export default Providers;

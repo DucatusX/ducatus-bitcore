@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'Bitstamp',
   url: 'https://www.bitstamp.net/api/ticker/',
   parseFn(raw, coin) {

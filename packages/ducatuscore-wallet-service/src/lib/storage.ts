@@ -17,6 +17,7 @@ import {
   TxProposal,
   Wallet
 } from './model';
+import { Rate } from './fiatrateproviders';
 
 const BCHAddressTranslator = require('./bchaddresstranslator'); // only for migration
 const $ = require('preconditions').singleton();
@@ -1234,11 +1235,11 @@ export class Storage {
     );
   }
 
-  storeFiatRate(coin, rates, cb) {
+  storeFiatRate(coin: string, rates: Rate[], cb) {
     const now = Date.now();
     async.each(
       rates,
-      (rate: { code: string; value: string }, next) => {
+      (rate: Rate, next) => {
         let i = {
           ts: now,
           coin,
