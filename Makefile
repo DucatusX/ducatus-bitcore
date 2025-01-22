@@ -1,6 +1,6 @@
 lines?=1000
 
-compose=sudo docker-compose
+compose=sudo docker compose
 
 start:
 	$(compose) up --build -d

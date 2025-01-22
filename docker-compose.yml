@@ -5,7 +5,12 @@ services:
     volumes: 
       - /data/node_db:/data/db
     networks:
-      - ducatuscore-network 
+      - ducatuscore-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "250m"
+        max-file: "4"
 
   dws-db:
     image: mongo:5.0
@@ -17,6 +22,11 @@ services:
     command: mongod --port 27001
     ports:
       - 27001:27001
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "250m"
+        max-file: "4"  
     
   node:
     build: .
@@ -32,6 +42,11 @@ services:
       - DB_HOST=node-db
     working_dir: /ducatuscore/packages/ducatuscore-node
     entrypoint: ["yarn", "start"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "250m"
+        max-file: "4"
 
   dws:
     build: .
@@ -49,6 +64,11 @@ services:
       - DUCX_NODE_URL=${DUCX_NODE_URL:-node:3000}
     working_dir: /ducatuscore/packages/ducatuscore-wallet-service
     entrypoint: ["yarn", "start"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "250m"
+        max-file: "4"
 
 networks:
   ducatuscore-network:
