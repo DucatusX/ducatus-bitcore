@@ -5,15 +5,17 @@ compose=sudo docker compose
 start:
 	$(compose) up --build -d
 
-pause:
-	$(compose) stop
-
 stop:
-	$(compose) down
+	$(compose) down node
+	$(compose) down dws
+	
+stop-db:
+	$(compose) down -t=60 node-db
+	$(compose) down -t=60 dws-db
 
 restart:
-	$(compose) down
-	$(compose) up --build -d
+	$(compose) restart node
+	$(compose) restart dws
 
 logs-node:
 	$(compose) logs -f --tail=$(lines) node
