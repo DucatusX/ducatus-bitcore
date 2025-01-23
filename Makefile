@@ -14,8 +14,10 @@ stop-db:
 	$(compose) down -t=60 dws-db
 
 restart:
-	$(compose) restart node
-	$(compose) restart dws
+	$(compose) down node
+	$(compose) down dws
+	$(compose) up --build -d node
+	$(compose) up --build -d dws
 
 logs-node:
 	$(compose) logs -f --tail=$(lines) node
