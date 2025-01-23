@@ -10,8 +10,8 @@ stop:
 	$(compose) down dws
 	
 stop-db:
-	$(compose) down -t=60 node-db
-	$(compose) down -t=60 dws-db
+	$(compose) down -t=180 node-db
+	$(compose) down -t=180 dws-db
 
 restart:
 	$(compose) down node
