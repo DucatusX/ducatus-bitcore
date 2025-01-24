@@ -2,8 +2,8 @@ services:
   node-db:
     image: mongo:5.0
     restart: always
-    volumes: 
-      - /data/node_db:/data/db
+    volumes:
+      - /mnt/node/data/node_db:/data/db
     networks:
       - ducatuscore-network
     logging:
@@ -15,7 +15,7 @@ services:
   dws-db:
     image: mongo:5.0
     restart: always
-    volumes: 
+    volumes:
       - /data/dws_db:/data/db
     networks:
       - ducatuscore-network
@@ -26,8 +26,8 @@ services:
       driver: "json-file"
       options:
         max-size: "250m"
-        max-file: "4"  
-    
+        max-file: "4"
+
   node:
     build: .
     restart: always
