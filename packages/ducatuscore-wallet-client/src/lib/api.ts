@@ -1498,7 +1498,7 @@ export class API extends EventEmitter {
         if (err) return cb(err);
         return cb(null, Boolean(Array.isArray(res) && res.length));
       })
-  }, 300, {leading: true})
+  }, 400, {leading: true})
 
   private canCreateAddress(addresses, cb: (err, addressWithActivity?: {} | null) => void) {
       let activityFound = false;
