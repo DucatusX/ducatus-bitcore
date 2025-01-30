@@ -48,10 +48,6 @@
 
 ## Troubleshooting
 
-- ```
-  yarn fix
-  ```
-
 - If an error occurred with node-gyp, install the dependencies: https://www.npmjs.com/package/node-gyp and restart pc
 
 - > Mongo: E11000 duplicate key error collection:
