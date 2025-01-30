@@ -18,9 +18,6 @@
 - ```
   yarn install
   ```
-- ```
-  yarn compile
-  ```
 
 ## Development
 
@@ -47,10 +44,6 @@
   ```
 
 ## Troubleshooting
-
-- ```
-  yarn fix
-  ```
 
 - If an error occurred with node-gyp, install the dependencies: https://www.npmjs.com/package/node-gyp and restart pc
 
