@@ -1490,15 +1490,19 @@ export class API extends EventEmitter {
     });
   }
 
-  private getAddressActivity = debounce((chain, network, address: string, cb: (err, res?: boolean) => void) => {
-    const request = new Request(Constants.BTC_URL, {})
-    const url = `/api/${chain}/${network === 'livenet' ? 'mainnet' : 'testnet'}/address/${address}/txs?limit=1`;
-    request
-      .get(url, (err, res) => {
-        if (err) return cb(err);
-        return cb(null, Boolean(Array.isArray(res) && res.length));
-      })
-  }, 400, {leading: true})
+  private getAddressActivity(chain, network, address: string, cb: (err, res?: boolean) => void) {
+    const debouncedRequest = debounce(() => {
+      const request = new Request(Constants.BTC_URL, {})
+      const url = `/api/${chain}/${network === 'livenet' ? 'mainnet' : 'testnet'}/address/${address}/txs?limit=1`;
+      request
+        .get(url, (err, res) => {
+          if (err) return cb(err);
+          return cb(null, Boolean(Array.isArray(res) && res.length));
+        })
+    }, 400, {leading: true})
+
+    debouncedRequest()
+  }
 
   private canCreateAddress(addresses, cb: (err, addressWithActivity?: {} | null) => void) {
       let activityFound = false;

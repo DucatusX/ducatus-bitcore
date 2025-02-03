@@ -97,7 +97,7 @@ export class FiatRateService {
         json: true
       },
       (err, res, body) => {
-        if (err) cb(err);
+        if (err) return cb(err);
         if (res.statusCode >= 400) return cb(`StatusCode: ${res.statusCode}, Response: ${JSON.stringify(body)}`);
 
         logger.debug(`Data for ${provider.name} fetched successfully`);
